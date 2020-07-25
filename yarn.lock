@@ -8011,6 +8011,11 @@ vue-async-computed@^3.8.2:
   resolved "https://registry.yarnpkg.com/vue-async-computed/-/vue-async-computed-3.8.2.tgz#d5dff221b62f95ad2f98ce9e7bbea5a067ec8b9a"
   integrity sha512-If5roOhp/x0WWd0TWRD77YsuFoiIw3MbkcRlIB/FE3TqQCPje52eQp5CV5NN/7B0VAyPuGX5JQa+rc9AOcGAYw==
 
+vue-config@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/vue-config/-/vue-config-1.0.0.tgz#f6e6704845808fbfa3b17300fc7ffd624c2ca42e"
+  integrity sha1-9uZwSEWAj7+jsXMA/H/9YkwspC4=
+
 vue-eslint-parser@^7.0.0:
   version "7.1.0"
   resolved "https://registry.npm.taobao.org/vue-eslint-parser/download/vue-eslint-parser-7.1.0.tgz?cache=0&sync_timestamp=1589684321779&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fvue-eslint-parser%2Fdownload%2Fvue-eslint-parser-7.1.0.tgz#9cdbcc823e656b087507a1911732b867ac101e83"
