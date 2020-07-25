@@ -1,24 +1,58 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
+import ItemView from '@/views/ItemView';
+import ListView from '@/views/ListView';
+import LoginView from '@/views/LoginView';
+import FaqView from '@/views/FaqView';
+import UserView from '@/views/UserView';
+import TermView from '@/views/TermView';
+import PrivacyView from '@/views/PrivacyView';
+import BirthdayGiftView from '@/views/BirthdayGiftView';
 
 Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/",
-    name: "Home",
-    component: Home
+    name: 'Home',
+    path: '/',
+    component: ListView,
   },
   {
-    path: "/about",
-    name: "About",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue")
-  }
+    name: 'Login',
+    path: '/Login',
+    component: LoginView,
+  },
+
+  {
+    name: 'Item',
+    path: '/item/:id(\\d+)',
+    component: ItemView,
+  },
+  {
+    name: 'User',
+    path: '/user/:address',
+    component: UserView,
+  },
+  {
+    name: 'FAQ',
+    path: '/faq',
+    component: FaqView,
+  },
+  {
+    name: 'Privacy',
+    path: '/privacy-policy',
+    component: PrivacyView,
+  },
+  {
+    name: 'Term',
+    path: '/terms-of-us',
+    component: TermView,
+  },
+  {
+    name: 'BirthdayGift',
+    path: '/birthday-gift',
+    component: BirthdayGiftView,
+  },
 ];
 
 const router = new VueRouter({
