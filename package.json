@@ -12,12 +12,15 @@
     "core-js": "^3.6.5",
     "js-cookie": "^2.2.1",
     "register-service-worker": "^1.7.1",
+    "timeout-then": "^2.0.0",
     "vue": "^2.6.11",
     "vue-async-computed": "^3.8.2",
     "vue-config": "^1.0.0",
     "vue-lazyload": "^1.3.3",
     "vue-router": "^3.2.0",
-    "vuex": "^3.4.0"
+    "vue-spinner": "^1.0.4",
+    "vuex": "^3.4.0",
+    "web3": "^1.2.11"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.4.0",
