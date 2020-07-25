@@ -18,7 +18,6 @@
             <div class="card">
                 <div class="card-image">
                   <figure class="image is-1by1" style="margin: 0">
-                    <img :src="getOwnerAvatar" alt="Holder image">
                   </figure>
                 </div>
                 <div class="card-content">
@@ -105,19 +104,11 @@
 <script>
 import { buyItem, exchangeLuckyToken, setGg, setNextPrice } from '@/api';
 import { toReadablePrice } from '@/util';
-import Dravatar from 'dravatar';
 
 export default {
   name: 'item-view',
 
   data: () => ({}),
-
-  asyncComputed: {
-    async getOwnerAvatar() {
-      const uri = await Dravatar(this.ownerAddress);
-      return uri;
-    },
-  },
 
   computed: {
     ownerTag() {

@@ -6,7 +6,7 @@
     <div class="media">
       <div class="media-left">
         <figure class="image is-64x64">
-          <img :src="getAvatar" alt="Identicon" style="border-radius: 50%;">
+          <!-- <img :src="getAvatar" alt="Identicon" style="border-radius: 50%;"> -->
         </figure>
       </div>
       <div class="media-content">
@@ -34,8 +34,6 @@
 <script>
 import ItemList from '@/components/ItemList';
 import { getItemsOf } from '@/api';
-import getAvatarFromAddress from 'dravatar'
-  ;
 
 export default {
   name: 'UserView',
@@ -45,12 +43,6 @@ export default {
   data: () => ({
     itemIds: [],
   }),
-  asyncComputed: {
-    async getAvatar() {
-      const uri = await getAvatarFromAddress(this.address);
-      return uri;
-    },
-  },
   computed: {
     address() {
       return this.$route.params.address;
