@@ -1,6 +1,6 @@
 import Promise from 'bluebird';
 import Cookie from 'js-cookie';
-import { BigNumber } from 'bignumber.js';
+// import { BigNumber } from 'bignumber.js';
 import web3 from '@/web3';
 import * as config from '@/config';
 import request from 'superagent';
