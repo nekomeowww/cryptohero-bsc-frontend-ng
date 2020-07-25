@@ -8,13 +8,11 @@ import timeout from 'timeout-then';
 import cryptoWaterMarginABI from './abi/cryptoWaterMargin.json';
 import convertContractABI from './abi/convertContract.json';
 
-// Sometimes, web3.version.network might be undefined,
-// as a workaround, use defaultNetwork in that case.
-const network = config.network[web3.version.network] || config.defaultNetwork;
-const cryptoWaterMarginContract = web3.eth.contract(cryptoWaterMarginABI).at(network.contract);
+const network = config.network[4];
+const cryptoWaterMarginContract = new web3.eth.Contract(cryptoWaterMarginABI, network.contract);
 
 // This contract supposed to convert CWM to Lucky
-const convertContract = web3.eth.contract(convertContractABI).at(network.convert);
+const convertContract = new web3.eth.Contract(convertContractABI, network.convert);
 
 let store = [];
 let isInit = false;
@@ -40,18 +38,11 @@ export const init = async () => {
 init().then();
 
 export const getMe = async () => {
-  if (!window.web3) {
+  if (!window.ethereum) {
     throw Error('NO_METAMASK');
   }
-  return new Promise((resolve, reject) => {
-    web3.eth.getAccounts((error, accounts) => {
-      const address = accounts[0];
-      if (address) {
-        return resolve({ address });
-      }
-      return reject(new Error('METAMASK_LOCKED'));
-    });
-  });
+  const [address] = await web3.eth.getAccounts();
+  return address;
 };
 
 export const getAnnouncements = async () => {
@@ -149,7 +140,7 @@ export const getNextPrice = async (id, time = 0) => {
 
   if (item && item.nextPrice) {
     // Convert nextPrice from 'ether' to 'wei'
-    return web3.toWei(item.nextPrice, 'ether');
+    return web3.utils.toWei(item.nextPrice, 'ether');
   }
 
   return 0;
@@ -158,7 +149,7 @@ export const getNextPrice = async (id, time = 0) => {
 // price为用户成功发起交易的交易价格，调用setNextPrice后，nextPrice会变为此价格的1.1倍
 export const setNextPrice = async (id, priceInWei) => {
   // // Convert price(Wei) to a number instance (ether)
-  // const price = Number(web3.fromWei(priceInWei, 'ether').toString());
+  // const price = Number(web3.utils.fromWei(priceInWei, 'ether').toString());
   // const response = await request
   //   .get('https://api.leancloud.cn/1.1/classes/ad')
   //   .set({
@@ -230,23 +221,17 @@ export const getItem = async (id) => {
   return item;
 };
 
-export const buyItem = (id, price) => new Promise((resolve, reject) => {
-  cryptoWaterMarginContract.buy(id, {
-    value: price, // web3.toWei(Number(price), 'ether'),
+export const buyItem = (id, price) => cryptoWaterMarginContract.methods.buy(id).send({
+    value: price, // web3.utils.toWei(Number(price), 'ether'),
     gas: 220000,
     gasPrice: 1000000000 * 100,
-  },
-  (err, result) => (err ? reject(err) : resolve(result)));
 });
 
 // Lucky Part
-export const exchangeLuckyToken = tokenId => new Promise((resolve, reject) => {
-  convertContract.getNewToken(tokenId, {
+export const exchangeLuckyToken = tokenId => convertContract.getNewToken(tokenId).send({
     value: 0, // web3.toWei(Number(price), 'ether'),
     gas: 80000,
-    gasPrice: 1000000000 * 18,
-  },
-  (err, result) => (err ? reject(err) : resolve(result)));
+    gasPrice: 1000000000 * 18
 });
 
 export const isConvert = cardId => new Promise((resolve, reject) => {
@@ -280,7 +265,7 @@ export const getItemsOf = async (address) => {
 };
 
 export const getNetwork = async () => {
-  const netId = await Promise.promisify(web3.version.getNetwork)();
+  const netId = await web3.eth.getChainId();
   return config.network[netId];
 };
 

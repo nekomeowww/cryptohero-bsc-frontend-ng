@@ -4,7 +4,7 @@ import { BigNumber } from 'bignumber.js';
 /* eslint-disable import/prefer-default-export */
 
 export const toReadablePrice = (fromPrice, fromUnit = 'wei') => {
-  const priceInWei = web3.toWei(fromPrice, fromUnit);
+  const priceInWei = web3.utils.toWei(fromPrice, fromUnit);
   let price;
   let unit;
 
@@ -12,7 +12,7 @@ export const toReadablePrice = (fromPrice, fromUnit = 'wei') => {
     price = priceInWei;
     unit = 'Wei';
   } else {
-    price = web3.fromWei(priceInWei, 'ether');
+    price = web3.utils.fromWei(priceInWei, 'ether');
     unit = 'ETH';
   }
   return { price, unit };
