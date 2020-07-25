@@ -3,7 +3,7 @@ import Cookie from 'js-cookie';
 // import { BigNumber } from 'bignumber.js';
 import web3 from '@/web3';
 import * as config from '@/config';
-import request from 'superagent';
+// import request from 'superagent';
 import timeout from 'timeout-then';
 import cryptoWaterMarginABI from './abi/cryptoWaterMargin.json';
 import convertContractABI from './abi/convertContract.json';
@@ -21,20 +21,20 @@ let isInit = false;
 
 
 export const init = async () => {
-  await request
-    .get('https://api.leancloud.cn/1.1/classes/ad')
-    .set({
-      'X-LC-Id': 'R6A46DH2meySCVNM1uWOoW2M-gzGzoHsz',
-      'X-LC-Key': '8R6rGgpHa0Y9pq8uO53RAPCB',
-    })
-    .type('json')
-    .accept('json')
-    .then((response) => {
-      if (response.body && response.body.results) {
-        store = response.body.results;
-      }
-      isInit = true;
-    });
+  // await request
+  //   .get('https://api.leancloud.cn/1.1/classes/ad')
+  //   .set({
+  //     'X-LC-Id': 'R6A46DH2meySCVNM1uWOoW2M-gzGzoHsz',
+  //     'X-LC-Key': '8R6rGgpHa0Y9pq8uO53RAPCB',
+  //   })
+  //   .type('json')
+  //   .accept('json')
+  //   .then((response) => {
+  //     if (response.body && response.body.results) {
+  //       store = response.body.results;
+  //     }
+  //     isInit = true;
+  //   });
 };
 
 init().then();
@@ -55,20 +55,20 @@ export const getMe = async () => {
 };
 
 export const getAnnouncements = async () => {
-  const response = await request
-    .get('https://api.leancloud.cn/1.1/classes/announcement')
-    .set({
-      'X-LC-Id': 'R6A46DH2meySCVNM1uWOoW2M-gzGzoHsz',
-      'X-LC-Key': '8R6rGgpHa0Y9pq8uO53RAPCB',
-    })
-    .type('json')
-    .accept('json');
+  // const response = await request
+  //   .get('https://api.leancloud.cn/1.1/classes/announcement')
+  //   .set({
+  //     'X-LC-Id': 'R6A46DH2meySCVNM1uWOoW2M-gzGzoHsz',
+  //     'X-LC-Key': '8R6rGgpHa0Y9pq8uO53RAPCB',
+  //   })
+  //   .type('json')
+  //   .accept('json');
 
-  if (response.body && response.body.results) {
-    return response.body.results;
-  }
+  // if (response.body && response.body.results) {
+  //   return response.body.results;
+  // }
 
-  return [];
+  // return [];
 };
 
 export const getGg = async (id, time = 0) => {
@@ -86,53 +86,53 @@ export const getGg = async (id, time = 0) => {
 };
 
 export const setGg = async (id, str) => {
-  const response = await request
-    .get('https://api.leancloud.cn/1.1/classes/ad')
-    .set({
-      'X-LC-Id': 'R6A46DH2meySCVNM1uWOoW2M-gzGzoHsz',
-      'X-LC-Key': '8R6rGgpHa0Y9pq8uO53RAPCB',
-    })
-    .type('json')
-    .accept('json');
-  if (response.body && response.body.results) {
-    store = response.body.results;
-  }
-  const item = store.find(x => x.id === `${id}`);
+  // const response = await request
+  //   .get('https://api.leancloud.cn/1.1/classes/ad')
+  //   .set({
+  //     'X-LC-Id': 'R6A46DH2meySCVNM1uWOoW2M-gzGzoHsz',
+  //     'X-LC-Key': '8R6rGgpHa0Y9pq8uO53RAPCB',
+  //   })
+  //   .type('json')
+  //   .accept('json');
+  // if (response.body && response.body.results) {
+  //   store = response.body.results;
+  // }
+  // const item = store.find(x => x.id === `${id}`);
 
-  if (item) {
-    // update request
-    await request
-      .put(`https://api.leancloud.cn/1.1/classes/ad/${item.objectId}`)
-      .set({
-        'X-LC-Id': 'R6A46DH2meySCVNM1uWOoW2M-gzGzoHsz',
-        'X-LC-Key': '8R6rGgpHa0Y9pq8uO53RAPCB',
-      })
-      .type('json')
-      .accept('json')
-      .send({
-        str,
-      });
-    // update store
-    item.str = str;
-  } else {
-    // create request
-    await request
-      .post('https://api.leancloud.cn/1.1/classes/ad')
-      .set({
-        'X-LC-Id': 'R6A46DH2meySCVNM1uWOoW2M-gzGzoHsz',
-        'X-LC-Key': '8R6rGgpHa0Y9pq8uO53RAPCB',
-      })
-      .type('json')
-      .accept('json')
-      .send({
-        id: `${id}`,
-        str,
-      });
-    // update store
-    await init();
-  }
+  // if (item) {
+  //   // update 
+  //   await request
+  //     .put(`https://api.leancloud.cn/1.1/classes/ad/${item.objectId}`)
+  //     .set({
+  //       'X-LC-Id': 'R6A46DH2meySCVNM1uWOoW2M-gzGzoHsz',
+  //       'X-LC-Key': '8R6rGgpHa0Y9pq8uO53RAPCB',
+  //     })
+  //     .type('json')
+  //     .accept('json')
+  //     .send({
+  //       str,
+  //     });
+  //   // update store
+  //   item.str = str;
+  // } else {
+  //   // create
+  //   await request
+  //     .post('https://api.leancloud.cn/1.1/classes/ad')
+  //     .set({
+  //       'X-LC-Id': 'R6A46DH2meySCVNM1uWOoW2M-gzGzoHsz',
+  //       'X-LC-Key': '8R6rGgpHa0Y9pq8uO53RAPCB',
+  //     })
+  //     .type('json')
+  //     .accept('json')
+  //     .send({
+  //       id: `${id}`,
+  //       str,
+  //     });
+  //   // update store
+  //   await init();
+  // }
 
-  return str;
+  // return str;
 };
 
 // 获取此卡片的推荐nextPrice，需要和卡片blockchain上的nextPrice进行比较，选择较大的创建交易
@@ -157,59 +157,58 @@ export const getNextPrice = async (id, time = 0) => {
 
 // price为用户成功发起交易的交易价格，调用setNextPrice后，nextPrice会变为此价格的1.1倍
 export const setNextPrice = async (id, priceInWei) => {
-  // Convert price(Wei) to a number instance (ether)
-  const price = Number(web3.fromWei(priceInWei, 'ether').toString());
-  const response = await request
-    .get('https://api.leancloud.cn/1.1/classes/ad')
-    .set({
-      'X-LC-Id': 'R6A46DH2meySCVNM1uWOoW2M-gzGzoHsz',
-      'X-LC-Key': '8R6rGgpHa0Y9pq8uO53RAPCB',
-    })
-    .type('json')
-    .accept('json');
-  if (response.body && response.body.results) {
-    store = response.body.results;
-  }
-  const item = store.find(x => x.id === `${id}`);
+  // // Convert price(Wei) to a number instance (ether)
+  // const price = Number(web3.fromWei(priceInWei, 'ether').toString());
+  // const response = await request
+  //   .get('https://api.leancloud.cn/1.1/classes/ad')
+  //   .set({
+  //     'X-LC-Id': 'R6A46DH2meySCVNM1uWOoW2M-gzGzoHsz',
+  //     'X-LC-Key': '8R6rGgpHa0Y9pq8uO53RAPCB',
+  //   })
+  //   .type('json')
+  //   .accept('json');
+  // if (response.body && response.body.results) {
+  //   store = response.body.results;
+  // }
+  // const item = store.find(x => x.id === `${id}`);
 
-  if (item) {
-    if (price <= item.nextPrice) {
-      return item.nextPrice;
-    }
+  // if (item) {
+  //   if (price <= item.nextPrice) {
+  //     return item.nextPrice;
+  //   }
 
-    // update request
-    await request
-      .put(`https://api.leancloud.cn/1.1/classes/ad/${item.objectId}`)
-      .set({
-        'X-LC-Id': 'R6A46DH2meySCVNM1uWOoW2M-gzGzoHsz',
-        'X-LC-Key': '8R6rGgpHa0Y9pq8uO53RAPCB',
-      })
-      .type('json')
-      .accept('json')
-      .send({
-        nextPrice: price * 1.1,
-      });
-    // update store
-    item.nextPrice = price * 1.1;
-  } else {
-    // create request
-    await request
-      .post('https://api.leancloud.cn/1.1/classes/ad')
-      .set({
-        'X-LC-Id': 'R6A46DH2meySCVNM1uWOoW2M-gzGzoHsz',
-        'X-LC-Key': '8R6rGgpHa0Y9pq8uO53RAPCB',
-      })
-      .type('json')
-      .accept('json')
-      .send({
-        id: `${id}`,
-        nextPrice: price * 1.1,
-      });
-    // update store
-    await init();
-  }
+  //   // update
+  //   await request
+  //     .put(`https://api.leancloud.cn/1.1/classes/ad/${item.objectId}`)
+  //     .set({
+  //       'X-LC-Id': 'R6A46DH2meySCVNM1uWOoW2M-gzGzoHsz',
+  //       'X-LC-Key': '8R6rGgpHa0Y9pq8uO53RAPCB',
+  //     })
+  //     .type('json')
+  //     .accept('json')
+  //     .send({
+  //       nextPrice: price * 1.1,
+  //     });
+  //   // update store
+  //   item.nextPrice = price * 1.1;
+  // } else {
+  //   await request
+  //     .post('https://api.leancloud.cn/1.1/classes/ad')
+  //     .set({
+  //       'X-LC-Id': 'R6A46DH2meySCVNM1uWOoW2M-gzGzoHsz',
+  //       'X-LC-Key': '8R6rGgpHa0Y9pq8uO53RAPCB',
+  //     })
+  //     .type('json')
+  //     .accept('json')
+  //     .send({
+  //       id: `${id}`,
+  //       nextPrice: price * 1.1,
+  //     });
+  //   // update store
+  //   await init();
+  // }
 
-  return price * 1.1;
+  // return price * 1.1;
 };
 
 export const getItem = async (id) => {
