@@ -1,7 +1,5 @@
 import cardsData from './cards.json';
 
-/* eslint-disable import/prefer-default-export */
-
 export const network = {
   4: {
     name: 'Rinkeby Test Network',
