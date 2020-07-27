@@ -19,6 +19,6 @@
 </template>
 
 <script>
-import { buyItem, setGg, setNextPrice } from '@/api';
-import { toReadablePrice } from '@/util';
+// import { buyItem, setGg, setNextPrice } from '@/api';
+// import { toReadablePrice } from '@/util';
 </script>
