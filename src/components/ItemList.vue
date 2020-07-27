@@ -1,7 +1,7 @@
 <template>
   <div class="columns is-multiline is-mobile">
-    <router-link
-      v-for="item in items"
+    <div class="item" v-for="item in items" :key="item.id">
+      <router-link
       v-if="item"
       :to="{ name: 'Item', params: { id: item.id } }"
       :key="item.id.toString()"
@@ -11,39 +11,41 @@
            is-one-quarter-desktop
            is-one-quarter-widescreen
            is-one-quarter-fullhd"
-    >
-      <template v-if="1 <= item.id && item.id <= 114">
-        <div class="card">
-          <div class="card-image">
-            <figure class="image is-5by4">
-              <img v-lazy="getCardImage(item.id)" />
-            </figure>
-          </div>
-          <div class="card-content">
-            <div class="content is-small">
-              <h4>{{ item.nickname }} · {{ item.name }}</h4>
-              <ul>
-                <li>
-                  {{ $t("Owner") }}：
-                  <router-link
-                    v-if="item.owner"
-                    :to="{ name: 'User', params: { address: item.owner } }"
-                  >
-                    {{ item.owner.slice(-6).toUpperCase() }}
-                  </router-link>
-                </li>
-                <li>
-                  {{ $t("Current Price") }}: {{ toDisplayedPrice(item.price) }}
-                </li>
-              </ul>
-              <p class="item-slogan">
-                {{ $t("Slogan") }}: {{ toDisplayedAd(item.id) }}
-              </p>
+      >
+        <template v-if="1 <= item.id && item.id <= 114">
+          <div class="card">
+            <div class="card-image">
+              <figure class="image is-5by4">
+                <img v-lazy="getCardImage(item.id)" />
+              </figure>
+            </div>
+            <div class="card-content">
+              <div class="content is-small">
+                <h4>{{ item.nickname }} · {{ item.name }}</h4>
+                <ul>
+                  <li>
+                    {{ $t("Owner") }}：
+                    <router-link
+                      v-if="item.owner"
+                      :to="{ name: 'User', params: { address: item.owner } }"
+                    >
+                      {{ item.owner.slice(-6).toUpperCase() }}
+                    </router-link>
+                  </li>
+                  <li>
+                    {{ $t("Current Price") }}: {{ toDisplayedPrice(item.price) }}
+                  </li>
+                </ul>
+                <p class="item-slogan">
+                  {{ $t("Slogan") }}: {{ toDisplayedAd(item.id) }}
+                </p>
+              </div>
             </div>
           </div>
-        </div>
-      </template>
-    </router-link>
+        </template>
+      </router-link>
+    </div>
+    
   </div>
 </template>
 
