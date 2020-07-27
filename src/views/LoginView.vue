@@ -23,7 +23,7 @@
 
 <script>
 export default {
-  name: 'SignInView',
+  name: "SignInView",
   computed: {
     me() {
       return this.$store.state.me;
@@ -32,21 +32,19 @@ export default {
       return this.$store.state.signInError;
     },
     isNoMetaMask() {
-      return this.signInError === 'NO_METAMASK';
+      return this.signInError === "NO_METAMASK";
     },
     isMetaMaskLocked() {
-      return this.signInError === 'METAMASK_LOCKED';
+      return this.signInError === "METAMASK_LOCKED";
     },
     jumpToUser() {
       return {
-        name: 'User',
-        params: { address: this.me.address },
+        name: "User",
+        params: { address: this.me.address }
       };
-    },
-  },
+    }
+  }
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

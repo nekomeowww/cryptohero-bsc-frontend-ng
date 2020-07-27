@@ -1,22 +1,27 @@
-import Promise from 'bluebird';
-import Cookie from 'js-cookie';
+import Promise from "bluebird";
+import Cookie from "js-cookie";
 // import { BigNumber } from 'bignumber.js';
-import web3 from '@/web3';
-import * as config from '@/config';
+import web3 from "@/web3";
+import * as config from "@/config";
 // import request from 'superagent';
-import timeout from 'timeout-then';
-import cryptoWaterMarginABI from './abi/cryptoWaterMargin.json';
-import convertContractABI from './abi/convertContract.json';
+import timeout from "timeout-then";
+import cryptoWaterMarginABI from "./abi/cryptoWaterMargin.json";
+import convertContractABI from "./abi/convertContract.json";
 
 const network = config.network[4];
-const cryptoWaterMarginContract = new web3.eth.Contract(cryptoWaterMarginABI, network.contract);
+const cryptoWaterMarginContract = new web3.eth.Contract(
+  cryptoWaterMarginABI,
+  network.contract
+);
 
 // This contract supposed to convert CWM to Lucky
-const convertContract = new web3.eth.Contract(convertContractABI, network.convert);
+const convertContract = new web3.eth.Contract(
+  convertContractABI,
+  network.convert
+);
 
 let store = [];
 let isInit = false;
-
 
 export const init = async () => {
   // await request
@@ -39,7 +44,7 @@ init().then();
 
 export const getMe = async () => {
   if (!window.ethereum) {
-    throw Error('NO_METAMASK');
+    throw Error("NO_METAMASK");
   }
   const [address] = await web3.eth.getAccounts();
   return address;
@@ -54,11 +59,9 @@ export const getAnnouncements = async () => {
   //   })
   //   .type('json')
   //   .accept('json');
-
   // if (response.body && response.body.results) {
   //   return response.body.results;
   // }
-
   // return [];
 };
 
@@ -73,7 +76,7 @@ export const getGg = async (id, time = 0) => {
     return item.str;
   }
 
-  return '';
+  return "";
 };
 
 export const setGg = async (id, str) => {
@@ -89,9 +92,8 @@ export const setGg = async (id, str) => {
   //   store = response.body.results;
   // }
   // const item = store.find(x => x.id === `${id}`);
-
   // if (item) {
-  //   // update 
+  //   // update
   //   await request
   //     .put(`https://api.leancloud.cn/1.1/classes/ad/${item.objectId}`)
   //     .set({
@@ -122,7 +124,6 @@ export const setGg = async (id, str) => {
   //   // update store
   //   await init();
   // }
-
   // return str;
 };
 
@@ -140,7 +141,7 @@ export const getNextPrice = async (id, time = 0) => {
 
   if (item && item.nextPrice) {
     // Convert nextPrice from 'ether' to 'wei'
-    return web3.utils.toWei(item.nextPrice, 'ether');
+    return web3.utils.toWei(item.nextPrice, "ether");
   }
 
   return 0;
@@ -162,12 +163,10 @@ export const setNextPrice = async (id, priceInWei) => {
   //   store = response.body.results;
   // }
   // const item = store.find(x => x.id === `${id}`);
-
   // if (item) {
   //   if (price <= item.nextPrice) {
   //     return item.nextPrice;
   //   }
-
   //   // update
   //   await request
   //     .put(`https://api.leancloud.cn/1.1/classes/ad/${item.objectId}`)
@@ -198,21 +197,23 @@ export const setNextPrice = async (id, priceInWei) => {
   //   // update store
   //   await init();
   // }
-
   // return price * 1.1;
 };
 
-export const getItem = async (id) => {
-  const exist = await Promise.promisify(cryptoWaterMarginContract.tokenExists)(id);
+export const getItem = async id => {
+  const exist = await Promise.promisify(cryptoWaterMarginContract.tokenExists)(
+    id
+  );
   if (!exist) return null;
   const card = config.cards[id] || {};
   const item = {
     id,
     name: card.name,
-    nickname: card.nickname,
+    nickname: card.nickname
   };
-  [item.owner, item.price, item.nextPrice] =
-    await Promise.promisify(cryptoWaterMarginContract.allOf)(id);
+  [item.owner, item.price, item.nextPrice] = await Promise.promisify(
+    cryptoWaterMarginContract.allOf
+  )(id);
 
   // [[item.owner, item.price, item.nextPrice], item.estPrice] = await Promise.all([
   //   Promise.promisify(cryptoWaterMarginContract.allOf)(id),
@@ -221,44 +222,51 @@ export const getItem = async (id) => {
   return item;
 };
 
-export const buyItem = (id, price) => cryptoWaterMarginContract.methods.buy(id).send({
+export const buyItem = (id, price) =>
+  cryptoWaterMarginContract.methods.buy(id).send({
     value: price, // web3.utils.toWei(Number(price), 'ether'),
     gas: 220000,
-    gasPrice: 1000000000 * 100,
-});
+    gasPrice: 1000000000 * 100
+  });
 
 // Lucky Part
-export const exchangeLuckyToken = tokenId => convertContract.getNewToken(tokenId).send({
+export const exchangeLuckyToken = tokenId =>
+  convertContract.getNewToken(tokenId).send({
     value: 0, // web3.toWei(Number(price), 'ether'),
     gas: 80000,
     gasPrice: 1000000000 * 18
-});
+  });
 
-export const isConvert = cardId => new Promise((resolve, reject) => {
-  convertContract.isConvert(cardId,
-    (err, result) => (err ? reject(err) : resolve(result)));
-});
+export const isConvert = cardId =>
+  new Promise((resolve, reject) => {
+    convertContract.isConvert(cardId, (err, result) =>
+      err ? reject(err) : resolve(result)
+    );
+  });
 
-export const getTotal = () => Promise.promisify(cryptoWaterMarginContract.totalSupply)();
+export const getTotal = () =>
+  Promise.promisify(cryptoWaterMarginContract.totalSupply)();
 
 export const getItemIds = async (offset, limit) => {
-  let ids = await Promise.promisify(cryptoWaterMarginContract.itemsForSaleLimit)(offset, limit);
+  let ids = await Promise.promisify(
+    cryptoWaterMarginContract.itemsForSaleLimit
+  )(offset, limit);
   ids = ids.map(id => id.toNumber());
   ids.sort((a, b) => a - b);
   return Array.from(new Set(ids));
 };
 
-export const isItemMaster = async (id) => {
+export const isItemMaster = async id => {
   const me = await getMe();
   const item = await getItem(id);
 
   return me && me.address && item && item.owner && me.address === item.owner;
 };
 
-export const getItemsOf = async (address) => {
-  let ids = await Promise.promisify(
-    cryptoWaterMarginContract.tokensOf)(address)
-    ;
+export const getItemsOf = async address => {
+  let ids = await Promise.promisify(cryptoWaterMarginContract.tokensOf)(
+    address
+  );
   ids = ids.map(id => id.toNumber());
   ids.sort((a, b) => a - b);
   return Array.from(new Set(ids));
@@ -269,15 +277,14 @@ export const getNetwork = async () => {
   return config.network[netId];
 };
 
-export const getLocale = async () => (
-  Cookie.get('locale') ||
+export const getLocale = async () =>
+  Cookie.get("locale") ||
   (
     navigator.language ||
     navigator.browserLanguage ||
     navigator.userLanguage
-  ).toLowerCase()
-);
+  ).toLowerCase();
 
-export const setLocale = async (locale) => {
-  Cookie.set('locale', locale, { expires: 365 });
+export const setLocale = async locale => {
+  Cookie.set("locale", locale, { expires: 365 });
 };

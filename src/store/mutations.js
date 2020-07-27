@@ -1,6 +1,6 @@
 // https://vuex.vuejs.org/en/mutations.html
 
-import Vue from 'vue';
+import Vue from "vue";
 
 export default {
   setLocale(state, locale) {
@@ -17,7 +17,7 @@ export default {
   },
   SET_AD(state, { id, ad }) {
     Vue.set(state.ads, id, ad);
-  },
+  }
   /* Examples:
   [types.ADD_TO_CART](state, payload) {
     state.cart.push(payload);

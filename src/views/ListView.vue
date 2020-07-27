@@ -1,31 +1,30 @@
 <template>
   <div class="">
-    <div v-if="loading"
-         class="loader-wrapper">
+    <div v-if="loading" class="loader-wrapper">
       <pulse-loader></pulse-loader>
     </div>
-    <ItemList :itemIds='itemIds' />
+    <ItemList :itemIds="itemIds" />
   </div>
 </template>
 
 <script>
-import PulseLoader from 'vue-spinner/src/PulseLoader';
-import ItemList from '@/components/ItemList';
-import { getTotal, getItemIds } from '@/api';
-import { toReadablePrice } from '@/util';
+import PulseLoader from "vue-spinner/src/PulseLoader";
+import ItemList from "@/components/ItemList";
+import { getTotal, getItemIds } from "@/api";
+import { toReadablePrice } from "@/util";
 
 export default {
-  name: 'item-list',
+  name: "item-list",
   components: {
     PulseLoader,
-    ItemList,
+    ItemList
   },
 
   data() {
     return {
       loading: true,
       itemIds: [],
-      total: null,
+      total: null
     };
   },
 
@@ -42,9 +41,9 @@ export default {
     toDisplayedPrice(priceInWei) {
       const readable = toReadablePrice(priceInWei);
       return `${readable.price} ${readable.unit}`;
-    },
+    }
   },
-  watch: {},
+  watch: {}
 };
 </script>
 <style scoped>
@@ -55,4 +54,3 @@ export default {
   height: 100vh;
 }
 </style>
-

@@ -1,24 +1,24 @@
 // https://vuex.vuejs.org/en/actions.html
 
-import * as api from '@/api';
+import * as api from "@/api";
 
 export default {
   async initLocale({ commit }) {
     const locale = await api.getLocale();
-    commit('setLocale', locale);
+    commit("setLocale", locale);
   },
   async setLocale({ commit }, locale) {
     await api.setLocale(locale);
-    commit('setLocale', locale);
+    commit("setLocale", locale);
   },
   async FETCH_ME({ commit }) {
     try {
       const me = await api.getMe();
-      commit('SET_ME', me);
-      commit('SET_SIGN_IN_ERROR', null);
+      commit("SET_ME", me);
+      commit("SET_SIGN_IN_ERROR", null);
     } catch (e) {
-      commit('SET_ME', null);
-      commit('SET_SIGN_IN_ERROR', e.message);
+      commit("SET_ME", null);
+      commit("SET_SIGN_IN_ERROR", e.message);
     }
   },
   async FETCH_ITEM({ commit }, id) {
@@ -28,12 +28,12 @@ export default {
     const isLCYClaimed = await api.isConvert(id);
     item.isLCYClaimed = isLCYClaimed;
 
-    commit('SET_ITEM', { id, item });
+    commit("SET_ITEM", { id, item });
   },
   async FETCH_AD({ commit }, id) {
     const ad = await api.getGg(id);
-    commit('SET_AD', { id, ad });
-  },
+    commit("SET_AD", { id, ad });
+  }
   /* Examples:
   increment(context) {
     context.commit('increment');
