@@ -201,9 +201,7 @@ export const setNextPrice = async (id, priceInWei) => {
 };
 
 export const getItem = async id => {
-  const exist = await Promise.promisify(cryptoWaterMarginContract.tokenExists)(
-    id
-  );
+  const exist = await cryptoWaterMarginContract.methods.tokenExists(id).call();
   if (!exist) return null;
   const card = config.cards[id] || {};
   const item = {
@@ -211,23 +209,20 @@ export const getItem = async id => {
     name: card.name,
     nickname: card.nickname
   };
-  [item.owner, item.price, item.nextPrice] = await Promise.promisify(
-    cryptoWaterMarginContract.allOf
-  )(id);
+  [item.owner, item.price, item.nextPrice] = await cryptoWaterMarginContract.methods.allOf(id).call();
 
   // [[item.owner, item.price, item.nextPrice], item.estPrice] = await Promise.all([
-  //   Promise.promisify(cryptoWaterMarginContract.allOf)(id),
+  //   Promise.promisify(cryptoWaterMarginContract.methods.allOf)(id),
   //   getNextPrice(id)]);
   // item.price = BigNumber.maximum(item.price, item.estPrice);
   return item;
 };
 
-export const buyItem = (id, price) =>
-  cryptoWaterMarginContract.methods.buy(id).send({
+export const buyItem = (id, price) => cryptoWaterMarginContract.methods.buy(id).send({
     value: price, // web3.utils.toWei(Number(price), 'ether'),
     gas: 220000,
     gasPrice: 1000000000 * 100
-  });
+});
 
 // Lucky Part
 export const exchangeLuckyToken = tokenId =>
@@ -244,13 +239,10 @@ export const isConvert = cardId =>
     );
   });
 
-export const getTotal = () =>
-  Promise.promisify(cryptoWaterMarginContract.totalSupply)();
+export const getTotal = () =>cryptoWaterMarginContract.methods.totalSupply().call();
 
 export const getItemIds = async (offset, limit) => {
-  let ids = await Promise.promisify(
-    cryptoWaterMarginContract.itemsForSaleLimit
-  )(offset, limit);
+  let ids = await cryptoWaterMarginContract.methods.itemsForSaleLimit(offset, limit).call();
   ids = ids.map(id => id.toNumber());
   ids.sort((a, b) => a - b);
   return Array.from(new Set(ids));
@@ -264,9 +256,9 @@ export const isItemMaster = async id => {
 };
 
 export const getItemsOf = async address => {
-  let ids = await Promise.promisify(cryptoWaterMarginContract.tokensOf)(
+  let ids = await cryptoWaterMarginContract.methods.tokensOf(
     address
-  );
+  ).call();
   ids = ids.map(id => id.toNumber());
   ids.sort((a, b) => a - b);
   return Array.from(new Set(ids));
