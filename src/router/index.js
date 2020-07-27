@@ -46,7 +46,7 @@ const routes = [
     name: "Term",
     path: "/terms-of-us",
     component: TermView
-  },
+  }
 ];
 
 const router = new VueRouter({

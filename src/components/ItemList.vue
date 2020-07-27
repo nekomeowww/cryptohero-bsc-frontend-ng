@@ -2,10 +2,10 @@
   <div class="columns is-multiline is-mobile">
     <div class="item" v-for="item in items" :key="item.id">
       <router-link
-      v-if="item"
-      :to="{ name: 'Item', params: { id: item.id } }"
-      :key="item.id.toString()"
-      class="column
+        v-if="item"
+        :to="{ name: 'Item', params: { id: item.id } }"
+        :key="item.id.toString()"
+        class="column
            is-full-mobile
            is-one-quarter-tablet
            is-one-quarter-desktop
@@ -33,7 +33,8 @@
                     </router-link>
                   </li>
                   <li>
-                    {{ $t("Current Price") }}: {{ toDisplayedPrice(item.price) }}
+                    {{ $t("Current Price") }}:
+                    {{ toDisplayedPrice(item.price) }}
                   </li>
                 </ul>
                 <p class="item-slogan">
@@ -45,7 +46,6 @@
         </template>
       </router-link>
     </div>
-    
   </div>
 </template>
 
