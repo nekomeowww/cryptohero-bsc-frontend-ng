@@ -7,7 +7,6 @@ import FaqView from "@/views/FaqView";
 import UserView from "@/views/UserView";
 import TermView from "@/views/TermView";
 import PrivacyView from "@/views/PrivacyView";
-import BirthdayGiftView from "@/views/BirthdayGiftView";
 
 Vue.use(VueRouter);
 
@@ -48,11 +47,6 @@ const routes = [
     path: "/terms-of-us",
     component: TermView
   },
-  {
-    name: "BirthdayGift",
-    path: "/birthday-gift",
-    component: BirthdayGiftView
-  }
 ];
 
 const router = new VueRouter({

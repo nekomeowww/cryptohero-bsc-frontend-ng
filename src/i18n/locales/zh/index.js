@@ -11,7 +11,6 @@ module.exports = {
   Owner: "拥有者",
   "Current Price": "当前价格",
   Buy: "购买",
-  BirthdayGift: "智取生辰纲(HOT)",
   "Terms of Service": "使用条款",
   "Privacy Policy": "隐私政策",
   "Contact Us": "联系我们",
