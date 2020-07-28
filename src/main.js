@@ -1,5 +1,6 @@
 import Vue from "vue";
 import vueConfig from "vue-config";
+import i18n from "./i18n";
 import VueLazyload from "vue-lazyload";
 import AsyncComputed from "vue-async-computed";
 import * as config from "@/config";
@@ -17,5 +18,6 @@ Vue.use(vueConfig, config);
 new Vue({
   router,
   store,
-  render: h => h(App)
+  i18n,
+  render: (h) => h(App),
 }).$mount("#app");
