@@ -3,7 +3,7 @@ const PRIVACY_CONTENT = require("raw-loader!./privacy.html");
 const TERMS_CONTENT = require("raw-loader!./terms.html");
 
 module.exports = {
-  CryptoHero: "暗号化英雄",
+  TokenHero: "暗号化英雄",
   "My Cards": "コレクションカード",
   "Sign In": "サインイン",
   Home: "ホーム",
@@ -39,5 +39,5 @@ module.exports = {
   NoMetaMaskMsg:
     "ChromeやFirefoxなどのデスクトップブラウザでのみ再生できます。",
   LoginOKTitle: "お帰りなさい!",
-  LoginOKMsg: "あなたのカードコレクションを見るにはここをクリック"
+  LoginOKMsg: "あなたのカードコレクションを見るにはここをクリック",
 };

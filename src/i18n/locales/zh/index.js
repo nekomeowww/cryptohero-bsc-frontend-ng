@@ -3,7 +3,7 @@ const PRIVACY_CONTENT = require("raw-loader!./privacy.html");
 const TERMS_CONTENT = require("raw-loader!./terms.html");
 
 module.exports = {
-  CryptoHero: "以太水浒",
+  TokenHero: "Fan票水浒",
   "My Cards": "我的卡牌",
   "Sign In": "登录游戏",
   Home: "首页",
@@ -40,5 +40,5 @@ module.exports = {
   NoMetaMaskMsg:
     "你只能在支持 Web3 的浏览器（如 Google Chrome 或 FireFox），并安装 MetaMask 插件才能正常使用这个网站",
   LoginOKTitle: "欢迎回来",
-  LoginOKMsg: "点击这里查看你的卡片收藏"
+  LoginOKMsg: "点击这里查看你的卡片收藏",
 };

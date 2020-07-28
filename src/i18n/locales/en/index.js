@@ -3,7 +3,7 @@ const PRIVACY_CONTENT = require("raw-loader!./privacy.html");
 const TERMS_CONTENT = require("raw-loader!./terms.html");
 
 module.exports = {
-  CryptoHero: "CryptoHero",
+  TokenHero: "TokenHero",
   "My Cards": "My Cards",
   "Sign In": "Sign In",
   Home: "Home",
@@ -41,5 +41,5 @@ module.exports = {
   NoMetaMaskMsg:
     "You can only play me on a desktop browser like Chrome or Firefox.",
   LoginOKTitle: "Welcome Back!",
-  LoginOKMsg: "Click Here to see your collection"
+  LoginOKMsg: "Click Here to see your collection",
 };

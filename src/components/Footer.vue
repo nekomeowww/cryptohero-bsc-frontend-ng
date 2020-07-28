@@ -26,7 +26,7 @@
           <div class="content">
             <span> {{ $t("Contact Us") }}</span>
             <p>
-              <a href="http://t.me/CryptoHero_Official" target="_blank">
+              <a href="http://t.me/TokenHero_Official" target="_blank">
                 @Telegram
               </a>
             </p>
@@ -35,7 +35,6 @@
                 @Discord
               </a>
             </p>
-            <p>Wechat Group: add wechat friend "do_best_for_you"</p>
           </div>
         </div>
       </div>
@@ -43,8 +42,8 @@
         <p>
           <small>
             All rights reserved. <br />
-            &copy; Copyright 2018
-            <strong>CryptoHero.pro</strong>
+            &copy; Copyright 2018-2020
+            <strong>TokenHero</strong>
           </small>
         </p>
       </div>
