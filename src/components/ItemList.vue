@@ -60,11 +60,11 @@ export default {
 
   computed: {
     items() {
-      return this.itemIds.map(id => {
+      return this.itemIds.map((id) => {
         const item = this.$store.state.items[id];
         return item || { id };
       });
-    }
+    },
   },
 
   methods: {
@@ -80,21 +80,20 @@ export default {
       return ad;
     },
     getCardImage(id) {
-      // return `http://test.cdn.hackx.org/heros/${id}.jpg`;
-      return `static/assets/heros/${id}.jpg`;
-    }
+      return `https://hero-static.mttk.net/assets/heros/${id}.jpg`;
+    },
   },
 
   created() {},
 
   watch: {
     itemIds(newItemIds) {
-      newItemIds.forEach(itemId => {
+      newItemIds.forEach((itemId) => {
         this.$store.dispatch("FETCH_ITEM", itemId);
         this.$store.dispatch("FETCH_AD", itemId);
       });
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped>

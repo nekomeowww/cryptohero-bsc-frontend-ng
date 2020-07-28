@@ -150,19 +150,17 @@ export default {
       return this.$store.state.items[this.itemId].isLCYClaimed;
     },
     getCardImage() {
-      // return `http://test.cdn.hackx.org/heros/${this.itemId}.jpg`;
-      return `static/assets/heros/${this.itemId}.jpg`;
+      return `https://hero-static.mttk.net/assets/heros/${this.itemId}.jpg`;
     },
     getCardBackSideImage() {
-      //return `http://test.cdn.hackx.org/back/${this.itemId}.jpeg`;
-      return `static/assets/back/${this.itemId}.jpeg`;
+      return `https://hero-static.mttk.net/assets/back/${this.itemId}.jpeg`;
     },
     isOwner() {
       return this.item.owner === this.me.address;
     },
     notOwner() {
       return !this.isOwner;
-    }
+    },
   },
   async created() {
     this.$store.dispatch("FETCH_ITEM", this.itemId);
@@ -182,7 +180,7 @@ export default {
           alert(this.$t("BUY_SUCCESS_MSG"));
           setNextPrice(this.itemId, buyPrice);
         })
-        .catch(e => {
+        .catch((e) => {
           alert(this.$t("BUY_FAIL_MSG"));
           console.log(e);
         });
@@ -201,7 +199,7 @@ export default {
           .then(() => {
             this.$store.dispatch("FETCH_AD", this.itemId);
           })
-          .catch(e => {
+          .catch((e) => {
             alert(this.$t("UPDATE_SLOGAN_FAIL_MSG"));
             console.log(e);
           });
@@ -215,8 +213,8 @@ export default {
         .catch(() => {
           alert("交易发送失败");
         });
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped>
