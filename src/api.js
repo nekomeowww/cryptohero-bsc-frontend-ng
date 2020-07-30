@@ -5,18 +5,11 @@ import web3 from "@/web3";
 import * as config from "@/config";
 import timeout from "timeout-then";
 import cryptoWaterMarginABI from "./abi/cryptoWaterMargin.json";
-import convertContractABI from "./abi/convertContract.json";
 
 const network = config.network[4];
 const cryptoWaterMarginContract = new web3.eth.Contract(
   cryptoWaterMarginABI,
   network.contract
-);
-
-// This contract supposed to convert CWM to Lucky
-const convertContract = new web3.eth.Contract(
-  convertContractABI,
-  network.convert
 );
 
 let store = [];
@@ -153,21 +146,6 @@ export const buyItem = (id, price) =>
     value: price, // web3.utils.toWei(Number(price), 'ether'),
     gas: 220000,
     gasPrice: 1000000000 * 100,
-  });
-
-// Lucky Part
-export const exchangeLuckyToken = (tokenId) =>
-  convertContract.getNewToken(tokenId).send({
-    value: 0, // web3.toWei(Number(price), 'ether'),
-    gas: 80000,
-    gasPrice: 1000000000 * 18,
-  });
-
-export const isConvert = (cardId) =>
-  new Promise((resolve, reject) => {
-    convertContract.isConvert(cardId, (err, result) =>
-      err ? reject(err) : resolve(result)
-    );
   });
 
 export const getTotal = () =>

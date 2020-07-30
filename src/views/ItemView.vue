@@ -2,22 +2,13 @@
   <div class="item-view">
     <div v-if="item">
       <div class="columns is-multiline is-mobile">
-        <div
-          class="column
-           is-full-mobile"
-        >
+        <div class="column is-full-mobile">
           <img :src="getCardImage" />
         </div>
-        <div
-          class="column
-           is-full-mobile"
-        >
+        <div class="column is-full-mobile">
           <img :src="getCardBackSideImage" />
         </div>
-        <div
-          class="column
-           is-full-mobile"
-        >
+        <div class="column is-full-mobile">
           <div class="content">
             <h2>{{ item.nickname }} · {{ item.name }}</h2>
             <!-- Experimental Start -->
@@ -31,11 +22,8 @@
                     <p class="title is-4">{{ $t("Owner") }} {{ ownerTag }}</p>
                     <p class="subtitle is-6">
                       {{ $t("Current Price") }}：{{
-                        toDisplayedPrice(item.price)
+                      toDisplayedPrice(item.price)
                       }}
-                    </p>
-                    <p class="subtitle is-6">
-                      {{ $t("isLuckyClaim") }}: {{ isConvert ? "Yes" : "No" }}
                     </p>
                     <p class="subtitle is-6">{{ $t("Slogan") }}: {{ ad }}</p>
                   </div>
@@ -57,69 +45,56 @@
                 </router-link>
               </li>
               <li>{{$t('Current Price')}}：{{toDisplayedPrice(item.price)}}</li>
-              <li>{{$t('isLuckyClaim')}}：{{ isConvert ? 'Yes' : 'No'}}</li>
             </ul>
-            <p class="item-slogan">{{$t('Slogan')}}: {{ad}}</p> -->
+            <p class="item-slogan">{{$t('Slogan')}}: {{ad}}</p>-->
             <article v-if="notOwner" class="message is-warning">
-              <div class="message-body">
-                {{ $t("EDIT_SLOGAN_TIP") }}
-              </div>
+              <div class="message-body">{{ $t("EDIT_SLOGAN_TIP") }}</div>
             </article>
           </div>
 
           <template v-if="notOwner">
             <div class="buttons">
-              <button class="button is-danger is-outlined" @click="onBuy(1)">
-                {{ $t("BUY_BTN") }}
-              </button>
-              <button class="button is-danger is-outlined" @click="onBuy(1.1)">
-                {{ $t("PREMIUM_BUY_BTN", { rate: "10%" }) }}
-              </button>
-              <button class="button is-danger is-outlined" @click="onBuy(1.2)">
-                {{ $t("PREMIUM_BUY_BTN", { rate: "20%" }) }}
-              </button>
-              <button class="button is-danger is-outlined" @click="onBuy(1.3)">
-                {{ $t("PREMIUM_BUY_BTN", { rate: "30%" }) }}
-              </button>
-              <button class="button is-danger is-outlined" @click="onBuy(1.4)">
-                {{ $t("PREMIUM_BUY_BTN", { rate: "40%" }) }}
-              </button>
-              <button class="button is-danger is-outlined" @click="onBuy(1.5)">
-                {{ $t("PREMIUM_BUY_BTN", { rate: "50%" }) }}
-              </button>
+              <button class="button is-danger is-outlined" @click="onBuy(1)">{{ $t("BUY_BTN") }}</button>
+              <button
+                class="button is-danger is-outlined"
+                @click="onBuy(1.1)"
+              >{{ $t("PREMIUM_BUY_BTN", { rate: "10%" }) }}</button>
+              <button
+                class="button is-danger is-outlined"
+                @click="onBuy(1.2)"
+              >{{ $t("PREMIUM_BUY_BTN", { rate: "20%" }) }}</button>
+              <button
+                class="button is-danger is-outlined"
+                @click="onBuy(1.3)"
+              >{{ $t("PREMIUM_BUY_BTN", { rate: "30%" }) }}</button>
+              <button
+                class="button is-danger is-outlined"
+                @click="onBuy(1.4)"
+              >{{ $t("PREMIUM_BUY_BTN", { rate: "40%" }) }}</button>
+              <button
+                class="button is-danger is-outlined"
+                @click="onBuy(1.5)"
+              >{{ $t("PREMIUM_BUY_BTN", { rate: "50%" }) }}</button>
             </div>
             <article class="message is-danger">
-              <div class="message-body">
-                {{ $t("BUY_PRICE_TIP") }}
-              </div>
+              <div class="message-body">{{ $t("BUY_PRICE_TIP") }}</div>
             </article>
           </template>
 
           <template v-if="isOwner">
             <div class="buttons">
-              <button class="button is-warning" @click="onUpdateAd">
-                {{ $t("Edit Slogan") }}
-              </button>
-              <button
-                class="button is-info"
-                v-if="!isConvert"
-                @click="exchangeToken"
-              >
-                {{ $t("Claim Lucky Token") }}
-              </button>
+              <button class="button is-warning" @click="onUpdateAd">{{ $t("Edit Slogan") }}</button>
             </div>
           </template>
         </div>
       </div>
     </div>
-    <div v-else-if="item === null">
-      Token doesn't exist
-    </div>
+    <div v-else-if="item === null">Token doesn't exist</div>
   </div>
 </template>
 
 <script>
-import { buyItem, exchangeLuckyToken, setGg, setNextPrice } from "@/api";
+import { buyItem, setGg, setNextPrice } from "@/api";
 import { toReadablePrice } from "@/util";
 
 export default {
@@ -146,9 +121,6 @@ export default {
     ad() {
       return this.$store.state.ads[this.itemId];
     },
-    isConvert() {
-      return this.$store.state.items[this.itemId].isLCYClaimed;
-    },
     getCardImage() {
       return `https://hero-static.mttk.net/assets/heros/${this.itemId}.jpg`;
     },
@@ -160,7 +132,7 @@ export default {
     },
     notOwner() {
       return !this.isOwner;
-    },
+    }
   },
   async created() {
     this.$store.dispatch("FETCH_ITEM", this.itemId);
@@ -180,7 +152,7 @@ export default {
           alert(this.$t("BUY_SUCCESS_MSG"));
           setNextPrice(this.itemId, buyPrice);
         })
-        .catch((e) => {
+        .catch(e => {
           alert(this.$t("BUY_FAIL_MSG"));
           console.log(e);
         });
@@ -199,22 +171,14 @@ export default {
           .then(() => {
             this.$store.dispatch("FETCH_AD", this.itemId);
           })
-          .catch((e) => {
+          .catch(e => {
             alert(this.$t("UPDATE_SLOGAN_FAIL_MSG"));
             console.log(e);
           });
       }
       return 0;
-    },
-    async exchangeToken() {
-      // need i18n
-      exchangeLuckyToken(this.itemId)
-        .then(() => alert("请求已发送 请等待交易结果"))
-        .catch(() => {
-          alert("交易发送失败");
-        });
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped>

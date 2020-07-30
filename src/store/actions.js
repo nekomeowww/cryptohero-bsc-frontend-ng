@@ -23,60 +23,10 @@ export default {
   },
   async FETCH_ITEM({ commit }, id) {
     const item = await api.getItem(id);
-
-    // Get is LCY Claimed and merge the status into the item
-    const isLCYClaimed = await api.isConvert(id);
-    item.isLCYClaimed = isLCYClaimed;
-
     commit("SET_ITEM", { id, item });
   },
   async FETCH_AD({ commit }, id) {
     const ad = await api.getGg(id);
     commit("SET_AD", { id, ad });
-  }
-  /* Examples:
-  increment(context) {
-    context.commit('increment');
   },
-  increment({ commit }) {
-    commit('increment');
-  },
-  incrementAsync({ commit }, { amount }) {
-    setTimeout(() => {
-      commit('increment', amount);
-    }, 1000);
-  },
-  // this.$store.dispatch('incrementAsync', { amount: 10 });
-  checkout({ commit, state }, products) {
-    // save the items currently in the cart
-    const savedCartItems = [...state.cart.added];
-    // send out checkout request, and optimistically
-    // clear the cart
-    commit(types.CHECKOUT_REQUEST);
-    // the shop API accepts a success callback and a failure callback
-    shop.buyProducts(
-      products,
-      // handle success
-      () => commit(types.CHECKOUT_SUCCESS),
-      // handle failure
-      () => commit(types.CHECKOUT_FAILURE, savedCartItems),
-    );
-  },
-  async actionA({ commit }) {
-    commit('gotData', await getData());
-  },
-  async actionB({ dispatch, commit }) {
-    await dispatch('actionA'); // wait for `actionA` to finish
-    commit('gotOtherData', await getOtherData());
-  },
-  actionA({ commit }) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        commit('someMutation');
-        resolve();
-      }, 1000);
-    });
-  },
-  // store.dispatch('actionA').then(() => {})
-  */
 };
