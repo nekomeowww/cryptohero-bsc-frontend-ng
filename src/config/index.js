@@ -8,8 +8,6 @@ export const network = {
   },
 };
 
-export const defaultNetwork = Object.values(network).find((net) => net.default);
-
 export const cards = cardsData;
 
 export const i18n = [

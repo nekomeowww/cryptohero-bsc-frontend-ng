@@ -23,6 +23,7 @@ export const getMe = async () => {
     throw Error("NO_METAMASK");
   }
   const [address] = await web3.eth.getAccounts();
+  if (!address) throw Error("METAMASK_NOT_ENABLED")
   return address;
 };
 

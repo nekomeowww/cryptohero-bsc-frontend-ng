@@ -12,6 +12,12 @@
               h1.title|{{$t('NoMetaMaskTitle')}}
               h2.subtitle|{{$t('NoMetaMaskMsg')}}
 
+    section.hero(class="is-danger is-bold" v-if="isNotEnabled")
+          .hero-body
+            .container
+              h1.title| Please connect your MetaMask
+              button(@click="enableWeb3()")| Connect
+
     section.hero(class="is-success is-bold" v-if="me")
           .hero-body
             router-link(:to="jumpToUser")
@@ -22,6 +28,7 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
   name: "SignInView",
   computed: {
@@ -37,11 +44,23 @@ export default {
     isMetaMaskLocked() {
       return this.signInError === "METAMASK_LOCKED";
     },
+    isNotEnabled() {
+      return this.signInError === "METAMASK_NOT_ENABLED"
+    },
     jumpToUser() {
+      if (!this.me) return null;
       return {
         name: "User",
         params: { address: this.me.address }
       };
+    }
+  },
+  methods: {
+    ...mapActions(['FETCH_ME']),
+    async enableWeb3() {
+        console.log('connect')
+        await window.ethereum.enable()
+        await this.FETCH_ME()
     }
   }
 };
