@@ -3,7 +3,7 @@ import cardsData from "./cards.json";
 export const network = {
   4: {
     name: "Rinkeby Test Network",
-    contract: "0x2babc240e17b7dba91e1594f9705382f3e055248",
+    contract: "0xfba3dd1b8459c0cbebc9259705c403e6815f9521",
     token: "0xdea119d27F53D98EFdB29e0B3ac06317BAF9667E",
   },
 };
