@@ -128,11 +128,10 @@ export const getItem = async (id) => {
     name: card.name,
     nickname: card.nickname,
   };
-  [
-    item.owner,
-    item.price,
-    item.nextPrice,
-  ] = await cryptoWaterMarginContract.methods.allOf(id).call();
+ const { _owner, _price, _nextPrice } = await cryptoWaterMarginContract.methods.allOf(id).call();
+ [ item.owner,
+  item.price,
+  item.nextPrice] = [_owner, _price, _nextPrice]
 
   // [[item.owner, item.price, item.nextPrice], item.estPrice] = await Promise.all([
   //   Promise.promisify(cryptoWaterMarginContract.methods.allOf)(id),
@@ -155,7 +154,7 @@ export const getItemIds = async (offset, limit) => {
   let ids = await cryptoWaterMarginContract.methods
     .itemsForSaleLimit(offset, limit)
     .call();
-  ids = ids.map((id) => id.toNumber());
+  ids = ids.map((id) => Number(id));
   ids.sort((a, b) => a - b);
   return Array.from(new Set(ids));
 };
@@ -169,7 +168,7 @@ export const isItemMaster = async (id) => {
 
 export const getItemsOf = async (address) => {
   let ids = await cryptoWaterMarginContract.methods.tokensOf(address).call();
-  ids = ids.map((id) => id.toNumber());
+  ids = ids.map((id) => Number(id));
   ids.sort((a, b) => a - b);
   return Array.from(new Set(ids));
 };

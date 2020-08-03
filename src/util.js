@@ -2,6 +2,7 @@ import web3 from "@/web3";
 import { BigNumber } from "bignumber.js";
 
 export const toReadablePrice = (fromPrice, fromUnit = "wei") => {
+  console.log('toReadablePrice fromPrice', fromPrice)
   const priceInWei = web3.utils.toWei(fromPrice, fromUnit);
   let price;
   let unit;

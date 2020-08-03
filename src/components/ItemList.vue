@@ -34,11 +34,12 @@
                   </li>
                   <li>
                     {{ $t("Current Price") }}:
-                    {{ toDisplayedPrice(item.price) }}
+                    {{ item.price && toDisplayedPrice(item.price) }}
                   </li>
                 </ul>
                 <p class="item-slogan">
-                  {{ $t("Slogan") }}: {{ toDisplayedAd(item.id) }}
+                  {{ $t("Slogan") }}: Not open yet
+                  <!-- {{ toDisplayedAd(item.id) }} -->
                 </p>
               </div>
             </div>
