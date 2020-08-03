@@ -3,23 +3,20 @@
     <div v-if="item">
       <div class="columns is-multiline is-mobile">
         <div class="column is-full-mobile">
-          <img :src="getCardImage" />
+          <img :src="getCardImage" style="width:100%;" />
         </div>
         <div class="column is-full-mobile">
-          <img :src="getCardBackSideImage" />
+          <img :src="getCardBackSideImage" style="width:100%;" />
         </div>
         <div class="column is-full-mobile">
           <div class="content">
-            <h2>{{ item.nickname }} · {{ item.name }}</h2>
             <!-- Experimental Start -->
             <div class="card">
-              <div class="card-image">
-                <figure class="image is-1by1" style="margin: 0"></figure>
-              </div>
               <div class="card-content">
                 <div class="media">
                   <div class="media-content">
-                    <p class="title is-4">{{ $t("Owner") }} {{ ownerTag }}</p>
+                    <p class="title is-4">{{ item.nickname }} · {{ item.name }}</p>
+                    <p class="title is-5">{{ $t("Owner") }} {{ ownerTag }}</p>
                     <p class="subtitle is-6">
                       {{ $t("Current Price") }}：{{
                       toDisplayedPrice(item.price)
