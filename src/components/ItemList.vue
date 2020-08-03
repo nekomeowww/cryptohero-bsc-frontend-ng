@@ -1,16 +1,15 @@
 <template>
   <div class="columns is-multiline is-mobile">
-    <div class="item" v-for="item in items" :key="item.id">
-      <router-link
-        v-if="item"
-        :to="{ name: 'Item', params: { id: item.id } }"
-        :key="item.id.toString()"
-        class="column
+    <div class="item column
            is-full-mobile
            is-one-quarter-tablet
            is-one-quarter-desktop
            is-one-quarter-widescreen
-           is-one-quarter-fullhd"
+           is-one-quarter-fullhd" v-for="item in items" :key="item.id">
+      <router-link
+        v-if="item"
+        :to="{ name: 'Item', params: { id: item.id } }"
+        :key="item.id.toString()"
       >
         <template v-if="1 <= item.id && item.id <= 114">
           <div class="card">
@@ -37,10 +36,9 @@
                     {{ item.price && toDisplayedPrice(item.price) }}
                   </li>
                 </ul>
-                <p class="item-slogan">
-                  {{ $t("Slogan") }}: Not open yet
-                  <!-- {{ toDisplayedAd(item.id) }} -->
-                </p>
+                <!-- <p class="item-slogan">
+                  {{ $t("Slogan") }}: {{ toDisplayedAd(item.id) }}
+                </p> -->
               </div>
             </div>
           </div>
