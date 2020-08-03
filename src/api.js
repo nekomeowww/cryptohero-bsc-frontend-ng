@@ -163,7 +163,7 @@ export const isItemMaster = async (id) => {
   const me = await getMe();
   const item = await getItem(id);
 
-  return me && me.address && item && item.owner && me.address === item.owner;
+  return me && item && item.owner && me === item.owner;
 };
 
 export const getItemsOf = async (address) => {

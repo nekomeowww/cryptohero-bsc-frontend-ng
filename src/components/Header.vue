@@ -13,7 +13,7 @@
         <router-link
           v-else
           class="navbar-item"
-          :to="{ name: 'User', params: { address: me.address } }"
+          :to="{ name: 'User', params: { address: me } }"
         >
           {{ $t("My Cards") }}
         </router-link>

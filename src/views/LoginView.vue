@@ -51,7 +51,7 @@ export default {
       if (!this.me) return null;
       return {
         name: "User",
-        params: { address: this.me.address }
+        params: { address: this.me }
       };
     }
   },

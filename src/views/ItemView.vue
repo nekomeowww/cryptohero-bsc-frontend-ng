@@ -125,7 +125,7 @@ export default {
       return `https://hero-static.mttk.net/assets/back/${this.itemId}.jpeg`;
     },
     isOwner() {
-      return this.item.owner === this.me.address;
+      return this.item.owner === this.me;
     },
     notOwner() {
       return !this.isOwner;

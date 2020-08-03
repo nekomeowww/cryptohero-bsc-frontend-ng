@@ -23,7 +23,7 @@
     <div class="tabs">
       <ul>
         <li class="is-active">
-          <a v-if="me && me.address.toUpperCase() === address">{{
+          <a v-if="me && me.toUpperCase() === address">{{
             $t("My Cards")
           }}</a>
           <a v-else>{{ $t("His Cards") }}</a>
@@ -51,7 +51,7 @@ export default {
       return this.$route.params.address;
     },
     getEtherScanURL() {
-      return `https://etherscan.io/address/${this.address}`;
+      return `https://rinkeby.etherscan.io/address/${this.address}`;
     },
     me() {
       return this.$store.state.me;
