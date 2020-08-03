@@ -4,11 +4,11 @@
     <div class="card">
       <div class="card-content">
         <div class="media">
-          <div class="media-left">
+          <!-- <div class="media-left">
             <figure class="image is-64x64">
-              <!-- <img :src="getAvatar" alt="Identicon" style="border-radius: 50%;"> -->
+              <img :src="getAvatar" alt="Identicon" style="border-radius: 50%;">
             </figure>
-          </div>
+          </div> -->
           <div class="media-content">
             <p class="title is-4">{{ $t("User") }}: {{ address }}</p>
             <p class="subtitle is-6">的卡片</p>
