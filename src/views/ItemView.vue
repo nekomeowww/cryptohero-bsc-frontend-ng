@@ -78,11 +78,12 @@
           </template>
 
           <template v-if="isOwner">
-            <div class="buttons">
+            <!-- <div class="buttons">
               <button class="button is-warning" @click="onUpdateAd">
                 {{ $t("Edit Slogan") }}
               </button>
-            </div>
+            </div> -->
+            <p>You owned this card.</p>
           </template>
         </div>
       </div>
@@ -159,23 +160,23 @@ export default {
       const readable = toReadablePrice(priceInWei);
       return `${readable.price} ${readable.unit}`;
     },
-    async onUpdateAd() {
-      const ad = prompt(this.$t("UPDATE_SLOGAN_PROMPT"));
-      if (ad !== null) {
-        if (ad.length > 100) {
-          return alert(this.$t("UPDATE_SLOGAN_FAIL_TOO_LOOG_MSG"));
-        }
-        setGg(this.itemId, ad)
-          .then(() => {
-            this.$store.dispatch("FETCH_AD", this.itemId);
-          })
-          .catch(e => {
-            alert(this.$t("UPDATE_SLOGAN_FAIL_MSG"));
-            console.log(e);
-          });
-      }
-      return 0;
-    }
+  //   async onUpdateAd() {
+  //     const ad = prompt(this.$t("UPDATE_SLOGAN_PROMPT"));
+  //     if (ad !== null) {
+  //       if (ad.length > 100) {
+  //         return alert(this.$t("UPDATE_SLOGAN_FAIL_TOO_LOOG_MSG"));
+  //       }
+  //       setGg(this.itemId, ad)
+  //         .then(() => {
+  //           this.$store.dispatch("FETCH_AD", this.itemId);
+  //         })
+  //         .catch(e => {
+  //           alert(this.$t("UPDATE_SLOGAN_FAIL_MSG"));
+  //           console.log(e);
+  //         });
+  //     }
+  //     return 0;
+  //   }
   }
 };
 </script>
