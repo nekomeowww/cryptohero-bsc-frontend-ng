@@ -23,7 +23,7 @@ export const getMe = async () => {
     throw Error("NO_METAMASK");
   }
   const [address] = await web3.eth.getAccounts();
-  if (!address) throw Error("METAMASK_NOT_ENABLED")
+  if (!address) throw Error("METAMASK_NOT_ENABLED");
   return address;
 };
 
@@ -36,7 +36,7 @@ export const getGg = async (id, time = 0) => {
     return timeout((time + 1) * 500).then(() => getGg(id, time + 1));
   }
 
-  const item = store.find((x) => x.id === `${id}`);
+  const item = store.find(x => x.id === `${id}`);
 
   if (item && item.str) {
     return item.str;
@@ -103,7 +103,7 @@ export const getNextPrice = async (id, time = 0) => {
     return timeout((time + 1) * 500).then(() => getNextPrice(id, time + 1));
   }
 
-  const item = store.find((x) => x.id === `${id}`);
+  const item = store.find(x => x.id === `${id}`);
 
   if (item && item.nextPrice) {
     // Convert nextPrice from 'ether' to 'wei'
@@ -119,19 +119,21 @@ export const setNextPrice = async (id, price) => {
   return price * 1.1;
 };
 
-export const getItem = async (id) => {
+export const getItem = async id => {
   const exist = await cryptoWaterMarginContract.methods.tokenExists(id).call();
   if (!exist) return null;
   const card = config.cards[id] || {};
   const item = {
     id,
     name: card.name,
-    nickname: card.nickname,
+    nickname: card.nickname
   };
- const { _owner, _price, _nextPrice } = await cryptoWaterMarginContract.methods.allOf(id).call();
- [ item.owner,
-  item.price,
-  item.nextPrice] = [_owner, _price, _nextPrice]
+  const {
+    _owner,
+    _price,
+    _nextPrice
+  } = await cryptoWaterMarginContract.methods.allOf(id).call();
+  [item.owner, item.price, item.nextPrice] = [_owner, _price, _nextPrice];
 
   // [[item.owner, item.price, item.nextPrice], item.estPrice] = await Promise.all([
   //   Promise.promisify(cryptoWaterMarginContract.methods.allOf)(id),
@@ -144,7 +146,7 @@ export const buyItem = (id, price) =>
   cryptoWaterMarginContract.methods.buy(id).send({
     value: price, // web3.utils.toWei(Number(price), 'ether'),
     gas: 220000,
-    gasPrice: 1000000000 * 100,
+    gasPrice: 1000000000 * 100
   });
 
 export const getTotal = () =>
@@ -154,21 +156,21 @@ export const getItemIds = async (offset, limit) => {
   let ids = await cryptoWaterMarginContract.methods
     .itemsForSaleLimit(offset, limit)
     .call();
-  ids = ids.map((id) => Number(id));
+  ids = ids.map(id => Number(id));
   ids.sort((a, b) => a - b);
   return Array.from(new Set(ids));
 };
 
-export const isItemMaster = async (id) => {
+export const isItemMaster = async id => {
   const me = await getMe();
   const item = await getItem(id);
 
   return me && item && item.owner && me === item.owner;
 };
 
-export const getItemsOf = async (address) => {
+export const getItemsOf = async address => {
   let ids = await cryptoWaterMarginContract.methods.tokensOf(address).call();
-  ids = ids.map((id) => Number(id));
+  ids = ids.map(id => Number(id));
   ids.sort((a, b) => a - b);
   return Array.from(new Set(ids));
 };
@@ -186,6 +188,6 @@ export const getLocale = async () =>
     navigator.userLanguage
   ).toLowerCase();
 
-export const setLocale = async (locale) => {
+export const setLocale = async locale => {
   Cookie.set("locale", locale, { expires: 365 });
 };

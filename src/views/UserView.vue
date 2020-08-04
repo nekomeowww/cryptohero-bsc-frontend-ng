@@ -23,9 +23,7 @@
     <div class="tabs">
       <ul>
         <li class="is-active">
-          <a v-if="me && me.toUpperCase() === address">{{
-            $t("My Cards")
-          }}</a>
+          <a v-if="me && me.toUpperCase() === address">{{ $t("My Cards") }}</a>
           <a v-else>{{ $t("His Cards") }}</a>
         </li>
       </ul>

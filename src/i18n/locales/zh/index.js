@@ -1,8 +1,8 @@
-const FAQs_CONTENT = require("raw-loader!./faq.html");
-const PRIVACY_CONTENT = require("raw-loader!./privacy.html");
-const TERMS_CONTENT = require("raw-loader!./terms.html");
+import FAQs_CONTENT from "raw-loader!./faq.html";
+import PRIVACY_CONTENT from "raw-loader!./privacy.html";
+import TERMS_CONTENT from "raw-loader!./terms.html";
 
-module.exports = {
+export default {
   TokenHero: "Fan票水浒",
   "My Cards": "我的卡牌",
   "Sign In": "登录游戏",
@@ -30,9 +30,9 @@ module.exports = {
   PREMIUM_BUY_BTN: "溢价{rate}买入",
   BUY_PRICE_TIP:
     "出价越高，抢到的几率越大! 推荐使用100+gas，提高交易确认速度！",
-  FAQs_CONTENT,
-  PRIVACY_CONTENT,
-  TERMS_CONTENT,
+  FAQs_CONTENT: FAQs_CONTENT,
+  PRIVACY_CONTENT: PRIVACY_CONTENT,
+  TERMS_CONTENT: TERMS_CONTENT,
   "MetaMask is locked": "你的 MetaMask 没有解锁",
   UnlockYourMetaMask:
     "Please open MetaMask and follow the instructions to unlock it.",
@@ -40,5 +40,5 @@ module.exports = {
   NoMetaMaskMsg:
     "你只能在支持 Web3 的浏览器（如 Google Chrome 或 FireFox），并安装 MetaMask 插件才能正常使用这个网站",
   LoginOKTitle: "欢迎回来",
-  LoginOKMsg: "点击这里查看你的卡片收藏",
+  LoginOKMsg: "点击这里查看你的卡片收藏"
 };

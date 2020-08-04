@@ -1,8 +1,8 @@
-const FAQs_CONTENT = require("raw-loader!./faq.html");
-const PRIVACY_CONTENT = require("raw-loader!./privacy.html");
-const TERMS_CONTENT = require("raw-loader!./terms.html");
+import FAQs_CONTENT from "raw-loader!./faq.html";
+import PRIVACY_CONTENT from "raw-loader!./privacy.html";
+import TERMS_CONTENT from "raw-loader!./terms.html";
 
-module.exports = {
+export default {
   TokenHero: "TokenHero",
   "My Cards": "My Cards",
   "Sign In": "Sign In",
@@ -31,9 +31,9 @@ module.exports = {
   PREMIUM_BUY_BTN: "{rate} Premium to buy",
   BUY_PRICE_TIP:
     "The higher the bid, the greater the chance of getting it. Use 100+gas to make the transaction proved fast!",
-  FAQs_CONTENT,
-  PRIVACY_CONTENT,
-  TERMS_CONTENT,
+  FAQs_CONTENT: FAQs_CONTENT,
+  PRIVACY_CONTENT: PRIVACY_CONTENT,
+  TERMS_CONTENT: TERMS_CONTENT,
   "MetaMask is locked": "Your MetaMask is locked",
   UnlockYourMetaMask:
     "Please open MetaMask and follow the instructions to unlock it.",
@@ -41,5 +41,5 @@ module.exports = {
   NoMetaMaskMsg:
     "You can only play me on a desktop browser like Chrome or Firefox.",
   LoginOKTitle: "Welcome Back!",
-  LoginOKMsg: "Click Here to see your collection",
+  LoginOKMsg: "Click Here to see your collection"
 };

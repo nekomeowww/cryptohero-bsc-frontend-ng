@@ -1,11 +1,15 @@
 <template>
   <div class="columns is-multiline is-mobile">
-    <div class="item column
+    <div
+      class="item column
            is-full-mobile
            is-one-quarter-tablet
            is-one-quarter-desktop
            is-one-quarter-widescreen
-           is-one-quarter-fullhd" v-for="item in items" :key="item.id">
+           is-one-quarter-fullhd"
+      v-for="item in items"
+      :key="item.id"
+    >
       <router-link
         v-if="item"
         :to="{ name: 'Item', params: { id: item.id } }"
@@ -59,11 +63,11 @@ export default {
 
   computed: {
     items() {
-      return this.itemIds.map((id) => {
+      return this.itemIds.map(id => {
         const item = this.$store.state.items[id];
         return item || { id };
       });
-    },
+    }
   },
 
   methods: {
@@ -80,19 +84,19 @@ export default {
     },
     getCardImage(id) {
       return `https://hero-static.mttk.net/assets/heros/${id}.jpg`;
-    },
+    }
   },
 
   created() {},
 
   watch: {
     itemIds(newItemIds) {
-      newItemIds.forEach((itemId) => {
+      newItemIds.forEach(itemId => {
         this.$store.dispatch("FETCH_ITEM", itemId);
         this.$store.dispatch("FETCH_AD", itemId);
       });
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped>

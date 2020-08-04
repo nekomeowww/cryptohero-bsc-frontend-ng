@@ -15,11 +15,13 @@
               <div class="card-content">
                 <div class="media">
                   <div class="media-content">
-                    <p class="title is-4">{{ item.nickname }} · {{ item.name }}</p>
+                    <p class="title is-4">
+                      {{ item.nickname }} · {{ item.name }}
+                    </p>
                     <p class="title is-5">{{ $t("Owner") }} {{ ownerTag }}</p>
                     <p class="subtitle is-6">
                       {{ $t("Current Price") }}：{{
-                      toDisplayedPrice(item.price)
+                        toDisplayedPrice(item.price)
                       }}
                     </p>
                     <p class="subtitle is-6">{{ $t("Slogan") }}: {{ ad }}</p>
@@ -51,27 +53,24 @@
 
           <template v-if="notOwner">
             <div class="buttons">
-              <button class="button is-danger is-outlined" @click="onBuy(1)">{{ $t("BUY_BTN") }}</button>
-              <button
-                class="button is-danger is-outlined"
-                @click="onBuy(1.1)"
-              >{{ $t("PREMIUM_BUY_BTN", { rate: "10%" }) }}</button>
-              <button
-                class="button is-danger is-outlined"
-                @click="onBuy(1.2)"
-              >{{ $t("PREMIUM_BUY_BTN", { rate: "20%" }) }}</button>
-              <button
-                class="button is-danger is-outlined"
-                @click="onBuy(1.3)"
-              >{{ $t("PREMIUM_BUY_BTN", { rate: "30%" }) }}</button>
-              <button
-                class="button is-danger is-outlined"
-                @click="onBuy(1.4)"
-              >{{ $t("PREMIUM_BUY_BTN", { rate: "40%" }) }}</button>
-              <button
-                class="button is-danger is-outlined"
-                @click="onBuy(1.5)"
-              >{{ $t("PREMIUM_BUY_BTN", { rate: "50%" }) }}</button>
+              <button class="button is-danger is-outlined" @click="onBuy(1)">
+                {{ $t("BUY_BTN") }}
+              </button>
+              <button class="button is-danger is-outlined" @click="onBuy(1.1)">
+                {{ $t("PREMIUM_BUY_BTN", { rate: "10%" }) }}
+              </button>
+              <button class="button is-danger is-outlined" @click="onBuy(1.2)">
+                {{ $t("PREMIUM_BUY_BTN", { rate: "20%" }) }}
+              </button>
+              <button class="button is-danger is-outlined" @click="onBuy(1.3)">
+                {{ $t("PREMIUM_BUY_BTN", { rate: "30%" }) }}
+              </button>
+              <button class="button is-danger is-outlined" @click="onBuy(1.4)">
+                {{ $t("PREMIUM_BUY_BTN", { rate: "40%" }) }}
+              </button>
+              <button class="button is-danger is-outlined" @click="onBuy(1.5)">
+                {{ $t("PREMIUM_BUY_BTN", { rate: "50%" }) }}
+              </button>
             </div>
             <article class="message is-danger">
               <div class="message-body">{{ $t("BUY_PRICE_TIP") }}</div>
@@ -80,7 +79,9 @@
 
           <template v-if="isOwner">
             <div class="buttons">
-              <button class="button is-warning" @click="onUpdateAd">{{ $t("Edit Slogan") }}</button>
+              <button class="button is-warning" @click="onUpdateAd">
+                {{ $t("Edit Slogan") }}
+              </button>
             </div>
           </template>
         </div>

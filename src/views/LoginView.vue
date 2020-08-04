@@ -45,7 +45,7 @@ export default {
       return this.signInError === "METAMASK_LOCKED";
     },
     isNotEnabled() {
-      return this.signInError === "METAMASK_NOT_ENABLED"
+      return this.signInError === "METAMASK_NOT_ENABLED";
     },
     jumpToUser() {
       if (!this.me) return null;
@@ -56,11 +56,11 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['FETCH_ME']),
+    ...mapActions(["FETCH_ME"]),
     async enableWeb3() {
-        console.log('connect')
-        await window.ethereum.enable()
-        await this.FETCH_ME()
+      console.log("connect");
+      await window.ethereum.enable();
+      await this.FETCH_ME();
     }
   }
 };
