@@ -12,7 +12,7 @@ import PulseLoader from "vue-spinner/src/PulseLoader";
 import ItemList from "@/components/ItemList";
 import { getTotal, getItemIds } from "@/api";
 import { toReadablePrice } from "@/util";
-import { mapState } from 'vuex';
+import { mapState } from "vuex";
 
 export default {
   name: "item-list",
@@ -30,7 +30,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['payTokenInfo'])
+    ...mapState(["payTokenInfo"])
   },
 
   async created() {

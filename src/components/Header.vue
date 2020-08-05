@@ -26,9 +26,7 @@
       <div class="navbar-end">
         <div class="navbar-item" v-if="isOkToDisplayBalance">
           <div class="field is-grouped">
-            <p class="control">
-              支付代币余额： {{ tokenBalance }}
-            </p>
+            <p class="control">支付代币余额： {{ tokenBalance }}</p>
           </div>
         </div>
         <div class="navbar-item">
@@ -66,7 +64,7 @@
 <script>
 import { toReadablePrice } from "@/util";
 import { getNetwork, getAnnouncements } from "@/api";
-import { mapState } from 'vuex';
+import { mapState } from "vuex";
 
 export default {
   name: "Header",
@@ -98,7 +96,7 @@ export default {
     this.infos = infos;
   },
   computed: {
-    ...mapState([ 'payTokenInfo', 'me' ]),
+    ...mapState(["payTokenInfo", "me"]),
     isOkToDisplayBalance() {
       return this.me && this.payTokenInfo && this.payTokenInfo.balance;
     },

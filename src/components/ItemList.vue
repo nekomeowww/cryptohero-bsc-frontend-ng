@@ -54,7 +54,7 @@
 
 <script>
 import { toReadablePrice } from "@/util";
-import { mapState } from 'vuex';
+import { mapState } from "vuex";
 
 export default {
   name: "item-lists",
@@ -63,7 +63,7 @@ export default {
   data: () => ({}),
 
   computed: {
-    ...mapState(['payTokenInfo']),
+    ...mapState(["payTokenInfo"]),
     items() {
       return this.itemIds.map(id => {
         const item = this.$store.state.items[id];
