@@ -74,9 +74,12 @@
             </div>
             <article class="message is-danger" v-if="payTokenInfo">
               <div class="message-body">
-                这个卡牌需要 {{payTokenInfo.name}}币 ({{payTokenInfo.symbol}}) 才能购买
-                <br>
-                购买步骤： 1. 先授权我们合约花费指定金额 2. 调用我们合约去扣除你的 ERC20 代币。
+                这个卡牌需要 {{ payTokenInfo.name }}币 ({{
+                  payTokenInfo.symbol
+                }}) 才能购买
+                <br />
+                购买步骤： 1. 先授权我们合约花费指定金额 2.
+                调用我们合约去扣除你的 ERC20 代币。
               </div>
             </article>
           </template>
@@ -99,7 +102,7 @@
 <script>
 import { buyItem, setGg, setNextPrice } from "@/api";
 import { toReadablePrice } from "@/util";
-import { mapState } from 'vuex';
+import { mapState } from "vuex";
 
 export default {
   name: "item-view",
@@ -107,7 +110,7 @@ export default {
   data: () => ({}),
 
   computed: {
-    ...mapState(['payTokenInfo']),
+    ...mapState(["payTokenInfo"]),
     ownerTag() {
       return this.item.owner.slice(-6).toUpperCase();
     },
@@ -164,25 +167,26 @@ export default {
     },
     toDisplayedPrice(priceInWei) {
       const readable = toReadablePrice(priceInWei);
-      return `${readable.price} ${this.payTokenInfo && this.payTokenInfo.symbol}`;
-    },
-  //   async onUpdateAd() {
-  //     const ad = prompt(this.$t("UPDATE_SLOGAN_PROMPT"));
-  //     if (ad !== null) {
-  //       if (ad.length > 100) {
-  //         return alert(this.$t("UPDATE_SLOGAN_FAIL_TOO_LOOG_MSG"));
-  //       }
-  //       setGg(this.itemId, ad)
-  //         .then(() => {
-  //           this.$store.dispatch("FETCH_AD", this.itemId);
-  //         })
-  //         .catch(e => {
-  //           alert(this.$t("UPDATE_SLOGAN_FAIL_MSG"));
-  //           console.log(e);
-  //         });
-  //     }
-  //     return 0;
-  //   }
+      return `${readable.price} ${this.payTokenInfo &&
+        this.payTokenInfo.symbol}`;
+    }
+    //   async onUpdateAd() {
+    //     const ad = prompt(this.$t("UPDATE_SLOGAN_PROMPT"));
+    //     if (ad !== null) {
+    //       if (ad.length > 100) {
+    //         return alert(this.$t("UPDATE_SLOGAN_FAIL_TOO_LOOG_MSG"));
+    //       }
+    //       setGg(this.itemId, ad)
+    //         .then(() => {
+    //           this.$store.dispatch("FETCH_AD", this.itemId);
+    //         })
+    //         .catch(e => {
+    //           alert(this.$t("UPDATE_SLOGAN_FAIL_MSG"));
+    //           console.log(e);
+    //         });
+    //     }
+    //     return 0;
+    //   }
   }
 };
 </script>

@@ -16,9 +16,9 @@ export default {
     Vue.set(state.items, id, item);
   },
   BATCH_SET_ITEMS(state, items) {
-    items.forEach((item) => {
+    items.forEach(item => {
       Vue.set(state.items, item.id, item);
-    })
+    });
   },
   SET_AD(state, { id, ad }) {
     Vue.set(state.ads, id, ad);

@@ -32,14 +32,14 @@ export default {
   },
   async FetchPayTokenInfo({ commit }) {
     const info = await api.getPayTokenInfo();
-    commit('SetPayTokenInfo', info);
+    commit("SetPayTokenInfo", info);
   },
   async FetchTokenBalance({ state, commit }) {
     const balance = await api.getTokenBalanceOf(state.me);
-    commit('SetPayTokenBalance', balance);
+    commit("SetPayTokenBalance", balance);
   },
   async FetchCards({ commit }) {
     const items = await api.BatchGetCardsItem();
-    commit('BATCH_SET_ITEMS', items);
+    commit("BATCH_SET_ITEMS", items);
   }
 };

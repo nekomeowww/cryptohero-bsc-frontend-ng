@@ -13,7 +13,7 @@
 <script>
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { mapActions } from 'vuex';
+import { mapActions } from "vuex";
 
 export default {
   name: "App",
@@ -22,7 +22,7 @@ export default {
     Footer
   },
   methods: {
-    ...mapActions(['FetchPayTokenInfo', 'FetchCards']),
+    ...mapActions(["FetchPayTokenInfo", "FetchCards"])
   },
   mounted() {
     this.FetchPayTokenInfo();

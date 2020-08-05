@@ -12,15 +12,12 @@ const cryptoWaterMarginContract = new web3.eth.Contract(
   cryptoWaterMarginABI,
   network.contract
 );
-const erc20Token = new web3.eth.Contract(
-  ERC20ABI,
-  network.token
-);
+const erc20Token = new web3.eth.Contract(ERC20ABI, network.token);
 
 const BatchGetCards = new web3.eth.Contract(
   BatchGetCardsABI,
   "0x6fa9CF4755C180bDddd74847BA1c95587701516A"
-)
+);
 
 let store = [];
 let isInit = false;
@@ -30,12 +27,12 @@ export const getStoreData = async () => {
 };
 
 export const getPayTokenInfo = async () => {
-  const [name, symbol]  = await Promise.all([
+  const [name, symbol] = await Promise.all([
     erc20Token.methods.name().call(),
     erc20Token.methods.symbol().call()
   ]);
-  return { name, symbol }
-}
+  return { name, symbol };
+};
 
 export const getMe = async () => {
   if (!window.ethereum) {
@@ -162,31 +159,34 @@ export const getItem = async id => {
 };
 
 export const BatchGetCardsItem = async () => {
-  const rawResultArray = await BatchGetCards.methods.getCard(network.contract, 114).call();
+  const rawResultArray = await BatchGetCards.methods
+    .getCard(network.contract, 114)
+    .call();
   const cards = rawResultArray.map(({ id, nextPrice, owner, price }) => {
     const card = config.cards[id] || {};
-    return { 
-      id, nextPrice, owner, price,
+    return {
+      id,
+      nextPrice,
+      owner,
+      price,
       name: card.name,
       nickname: card.nickname
-    }
-  })
+    };
+  });
   return cards;
-}
+};
 
 export const buyItem = async (id, price, from) => {
-  await erc20Token.methods.approve(
-    network.contract,
-    price
-  ).send({
+  await erc20Token.methods.approve(network.contract, price).send({
     from
   });
   return cryptoWaterMarginContract.methods.buy(id).send({
     from
   });
-}
+};
 
-export const getTokenBalanceOf = (address) => erc20Token.methods.balanceOf(address).call();
+export const getTokenBalanceOf = address =>
+  erc20Token.methods.balanceOf(address).call();
 
 export const getTotal = () =>
   cryptoWaterMarginContract.methods.totalSupply().call();
