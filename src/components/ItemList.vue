@@ -90,12 +90,12 @@ export default {
   created() {},
 
   watch: {
-    itemIds(newItemIds) {
-      newItemIds.forEach(itemId => {
-        this.$store.dispatch("FETCH_ITEM", itemId);
-        this.$store.dispatch("FETCH_AD", itemId);
-      });
-    }
+    // itemIds(newItemIds) {
+    //   newItemIds.forEach(itemId => {
+    //     this.$store.dispatch("FETCH_ITEM", itemId);
+    //     this.$store.dispatch("FETCH_AD", itemId);
+    //   });
+    // }
   }
 };
 </script>

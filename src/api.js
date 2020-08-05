@@ -5,6 +5,7 @@ import * as config from "@/config";
 import timeout from "timeout-then";
 import cryptoWaterMarginABI from "./abi/cryptoWaterMargin.json";
 import ERC20ABI from "./abi/ERC20.json";
+import BatchGetCardsABI from "./abi/BatchGetCards.json";
 
 const network = config.network[4];
 const cryptoWaterMarginContract = new web3.eth.Contract(
@@ -15,6 +16,11 @@ const erc20Token = new web3.eth.Contract(
   ERC20ABI,
   network.token
 );
+
+const BatchGetCards = new web3.eth.Contract(
+  BatchGetCardsABI,
+  "0x6fa9CF4755C180bDddd74847BA1c95587701516A"
+)
 
 let store = [];
 let isInit = false;
@@ -154,6 +160,19 @@ export const getItem = async id => {
   // item.price = BigNumber.maximum(item.price, item.estPrice);
   return item;
 };
+
+export const BatchGetCardsItem = async () => {
+  const rawResultArray = await BatchGetCards.methods.getCard(network.contract, 114).call();
+  const cards = rawResultArray.map(({ id, nextPrice, owner, price }) => {
+    const card = config.cards[id] || {};
+    return { 
+      id, nextPrice, owner, price,
+      name: card.name,
+      nickname: card.nickname
+    }
+  })
+  return cards;
+}
 
 export const buyItem = async (id, price, from) => {
   await erc20Token.methods.approve(

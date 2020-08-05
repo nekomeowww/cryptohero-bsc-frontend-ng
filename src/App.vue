@@ -22,10 +22,11 @@ export default {
     Footer
   },
   methods: {
-    ...mapActions(['FetchPayTokenInfo'])
+    ...mapActions(['FetchPayTokenInfo', 'FetchCards']),
   },
   mounted() {
     this.FetchPayTokenInfo();
+    this.FetchCards();
   },
   computed: {
     key() {

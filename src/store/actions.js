@@ -11,10 +11,11 @@ export default {
     await api.setLocale(locale);
     commit("setLocale", locale);
   },
-  async FETCH_ME({ commit }) {
+  async FETCH_ME({ commit, dispatch }) {
     try {
       const me = await api.getMe();
       commit("SET_ME", me);
+      dispatch("FetchTokenBalance");
       commit("SET_SIGN_IN_ERROR", null);
     } catch (e) {
       commit("SET_ME", null);
@@ -31,6 +32,14 @@ export default {
   },
   async FetchPayTokenInfo({ commit }) {
     const info = await api.getPayTokenInfo();
-    commit('SetPayTokenInfo', info)
+    commit('SetPayTokenInfo', info);
+  },
+  async FetchTokenBalance({ state, commit }) {
+    const balance = await api.getTokenBalanceOf(state.me);
+    commit('SetPayTokenBalance', balance);
+  },
+  async FetchCards({ commit }) {
+    const items = await api.BatchGetCardsItem();
+    commit('BATCH_SET_ITEMS', items);
   }
 };
