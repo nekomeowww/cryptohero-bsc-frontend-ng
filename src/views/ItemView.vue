@@ -166,9 +166,9 @@ export default {
         });
     },
     toDisplayedPrice(priceInWei) {
-      const readable = toReadablePrice(priceInWei);
-      return `${readable.price} ${this.payTokenInfo &&
-        this.payTokenInfo.symbol}`;
+      const { payTokenInfo } = this;
+      const readable = toReadablePrice(priceInWei, payTokenInfo.decimals);
+      return `${readable.price} ${payTokenInfo && payTokenInfo.symbol}`;
     }
   }
 };

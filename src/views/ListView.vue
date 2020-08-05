@@ -12,6 +12,7 @@ import PulseLoader from "vue-spinner/src/PulseLoader";
 import ItemList from "@/components/ItemList";
 import { getTotal, getItemIds } from "@/api";
 import { toReadablePrice } from "@/util";
+import { mapState } from 'vuex';
 
 export default {
   name: "item-list",
@@ -28,7 +29,9 @@ export default {
     };
   },
 
-  computed: {},
+  computed: {
+    ...mapState(['payTokenInfo'])
+  },
 
   async created() {
     this.total = await getTotal();
@@ -39,8 +42,9 @@ export default {
 
   methods: {
     toDisplayedPrice(priceInWei) {
-      const readable = toReadablePrice(priceInWei);
-      return `${readable.price} ${readable.unit}`;
+      const { payTokenInfo } = this;
+      const readable = toReadablePrice(priceInWei, payTokenInfo.decimals);
+      return `${readable.price} ${payTokenInfo && payTokenInfo.symbol}`;
     }
   },
   watch: {}

@@ -27,11 +27,12 @@ export const getStoreData = async () => {
 };
 
 export const getPayTokenInfo = async () => {
-  const [name, symbol] = await Promise.all([
+  const [name, symbol, decimals] = await Promise.all([
     erc20Token.methods.name().call(),
-    erc20Token.methods.symbol().call()
+    erc20Token.methods.symbol().call(),
+    erc20Token.methods.decimals().call()
   ]);
-  return { name, symbol };
+  return { name, symbol, decimals };
 };
 
 export const getMe = async () => {
