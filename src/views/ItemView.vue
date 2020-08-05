@@ -56,7 +56,7 @@
               <button class="button is-danger is-outlined" @click="onBuy(1)">
                 {{ $t("BUY_BTN") }}
               </button>
-              <button class="button is-danger is-outlined" @click="onBuy(1.1)">
+              <!-- <button class="button is-danger is-outlined" @click="onBuy(1.1)">
                 {{ $t("PREMIUM_BUY_BTN", { rate: "10%" }) }}
               </button>
               <button class="button is-danger is-outlined" @click="onBuy(1.2)">
@@ -70,10 +70,14 @@
               </button>
               <button class="button is-danger is-outlined" @click="onBuy(1.5)">
                 {{ $t("PREMIUM_BUY_BTN", { rate: "50%" }) }}
-              </button>
+              </button> -->
             </div>
-            <article class="message is-danger">
-              <div class="message-body">{{ $t("BUY_PRICE_TIP") }}</div>
+            <article class="message is-danger" v-if="payTokenInfo">
+              <div class="message-body">
+                这个卡牌需要 {{payTokenInfo.name}}币 ({{payTokenInfo.symbol}}) 才能购买
+                <br>
+                购买步骤： 1. 先授权我们合约花费指定金额 2. 调用我们合约去扣除你的 ERC20 代币。
+              </div>
             </article>
           </template>
 
@@ -95,6 +99,7 @@
 <script>
 import { buyItem, setGg, setNextPrice } from "@/api";
 import { toReadablePrice } from "@/util";
+import { mapState } from 'vuex';
 
 export default {
   name: "item-view",
@@ -102,6 +107,7 @@ export default {
   data: () => ({}),
 
   computed: {
+    ...mapState(['payTokenInfo']),
     ownerTag() {
       return this.item.owner.slice(-6).toUpperCase();
     },
@@ -145,8 +151,8 @@ export default {
       if (this.$store.state.signInError) {
         return this.$router.push({ name: "Login" });
       }
-      const buyPrice = this.item.price.times(rate).toFixed(0);
-      buyItem(this.itemId, buyPrice)
+      const buyPrice = (this.item.price * rate).toFixed(0);
+      buyItem(this.itemId, buyPrice, this.me)
         .then(() => {
           alert(this.$t("BUY_SUCCESS_MSG"));
           setNextPrice(this.itemId, buyPrice);
@@ -158,7 +164,7 @@ export default {
     },
     toDisplayedPrice(priceInWei) {
       const readable = toReadablePrice(priceInWei);
-      return `${readable.price} ${readable.unit}`;
+      return `${readable.price} ${this.payTokenInfo && this.payTokenInfo.symbol}`;
     },
   //   async onUpdateAd() {
   //     const ad = prompt(this.$t("UPDATE_SLOGAN_PROMPT"));

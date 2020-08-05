@@ -4,11 +4,16 @@ import web3 from "@/web3";
 import * as config from "@/config";
 import timeout from "timeout-then";
 import cryptoWaterMarginABI from "./abi/cryptoWaterMargin.json";
+import ERC20ABI from "./abi/ERC20.json";
 
 const network = config.network[4];
 const cryptoWaterMarginContract = new web3.eth.Contract(
   cryptoWaterMarginABI,
   network.contract
+);
+const erc20Token = new web3.eth.Contract(
+  ERC20ABI,
+  network.token
 );
 
 let store = [];
@@ -17,6 +22,14 @@ let isInit = false;
 export const getStoreData = async () => {
   // @todo: impl needed
 };
+
+export const getPayTokenInfo = async () => {
+  const [name, symbol]  = await Promise.all([
+    erc20Token.methods.name().call(),
+    erc20Token.methods.symbol().call()
+  ]);
+  return { name, symbol }
+}
 
 export const getMe = async () => {
   if (!window.ethereum) {
@@ -142,12 +155,19 @@ export const getItem = async id => {
   return item;
 };
 
-export const buyItem = (id, price) =>
-  cryptoWaterMarginContract.methods.buy(id).send({
-    value: price, // web3.utils.toWei(Number(price), 'ether'),
-    gas: 220000,
-    gasPrice: 1000000000 * 100
+export const buyItem = async (id, price, from) => {
+  await erc20Token.methods.approve(
+    network.contract,
+    price
+  ).send({
+    from
   });
+  return cryptoWaterMarginContract.methods.buy(id).send({
+    from
+  });
+}
+
+export const getTokenBalanceOf = (address) => erc20Token.methods.balanceOf(address).call();
 
 export const getTotal = () =>
   cryptoWaterMarginContract.methods.totalSupply().call();
