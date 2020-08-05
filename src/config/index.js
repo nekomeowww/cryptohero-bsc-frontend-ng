@@ -3,7 +3,7 @@ import cardsData from "./cards.json";
 export const network = {
   4: {
     name: "Rinkeby Test Network",
-    contract: "0xd16cbe4fdadfbdab0bf61caeb3f8a168bd8b5da3",
+    contract: "0x8bAFA09A4D227B78405345E11bfD094819a50135",
     token: "0x11F79a96a62D2Ba4A2411746e772A164608b511c" // TOOTH on testnet
   }
 };
