@@ -28,5 +28,9 @@ export default {
   async FETCH_AD({ commit }, id) {
     const ad = await api.getGg(id);
     commit("SET_AD", { id, ad });
+  },
+  async FetchPayTokenInfo({ commit }) {
+    const info = await api.getPayTokenInfo();
+    commit('SetPayTokenInfo', info)
   }
 };

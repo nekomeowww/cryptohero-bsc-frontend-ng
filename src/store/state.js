@@ -5,5 +5,6 @@ export default () => ({
   me: null,
   signInError: null,
   items: {},
-  ads: {}
+  ads: {},
+  payTokenInfo: null
 });

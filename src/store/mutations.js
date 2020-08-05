@@ -17,16 +17,8 @@ export default {
   },
   SET_AD(state, { id, ad }) {
     Vue.set(state.ads, id, ad);
+  },
+  SetPayTokenInfo(state, info) {
+    state.payTokenInfo = info;
   }
-  /* Examples:
-  [types.ADD_TO_CART](state, payload) {
-    state.cart.push(payload);
-  },
-  // this.$store.commit(types.ADD_TO_CART, product);
-
-  increment(state) {
-    state.count++;
-  },
-  // this.$store.commit('increment');
-  */
 };
