@@ -15,7 +15,7 @@ export default {
     try {
       const me = await api.getMe();
       commit("SET_ME", me);
-      dispatch("FetchTokenBalance");
+      dispatch("FetchPayTokenInfo");
       commit("SET_SIGN_IN_ERROR", null);
     } catch (e) {
       commit("SET_ME", null);
@@ -30,9 +30,10 @@ export default {
     const ad = await api.getGg(id);
     commit("SET_AD", { id, ad });
   },
-  async FetchPayTokenInfo({ commit }) {
+  async FetchPayTokenInfo({ commit, dispatch }) {
     const info = await api.getPayTokenInfo();
     commit("SetPayTokenInfo", info);
+    dispatch("FetchTokenBalance");
   },
   async FetchTokenBalance({ state, commit }) {
     const balance = await api.getTokenBalanceOf(state.me);

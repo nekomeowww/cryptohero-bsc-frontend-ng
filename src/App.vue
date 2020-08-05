@@ -22,10 +22,10 @@ export default {
     Footer
   },
   methods: {
-    ...mapActions(["FetchPayTokenInfo", "FetchCards"])
+    ...mapActions(["FETCH_ME", "FetchCards"])
   },
   mounted() {
-    this.FetchPayTokenInfo();
+    this.FETCH_ME();
     this.FetchCards();
   },
   computed: {
