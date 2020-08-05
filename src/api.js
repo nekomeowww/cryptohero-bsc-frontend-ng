@@ -39,6 +39,7 @@ export const getMe = async () => {
   if (!window.ethereum) {
     throw Error("NO_METAMASK");
   }
+  await window.ethereum.enable();
   const [address] = await web3.eth.getAccounts();
   if (!address) throw Error("METAMASK_NOT_ENABLED");
   return address;

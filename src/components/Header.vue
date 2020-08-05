@@ -76,7 +76,7 @@ export default {
   },
   async created() {
     this.$store.dispatch("initLocale");
-    this.$store.dispatch("FETCH_ME");
+    // this.$store.dispatch("FETCH_ME");
     const network = await getNetwork();
     if (!network) {
       alert("Please switch to Rinkeby testnet and refresh the page!");
