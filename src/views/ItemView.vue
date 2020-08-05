@@ -100,7 +100,7 @@
 </template>
 
 <script>
-import { buyItem, setGg, setNextPrice } from "@/api";
+import { buyItem, setNextPrice } from "@/api";
 import { toReadablePrice } from "@/util";
 import { mapState } from "vuex";
 
@@ -170,23 +170,6 @@ export default {
       return `${readable.price} ${this.payTokenInfo &&
         this.payTokenInfo.symbol}`;
     }
-    //   async onUpdateAd() {
-    //     const ad = prompt(this.$t("UPDATE_SLOGAN_PROMPT"));
-    //     if (ad !== null) {
-    //       if (ad.length > 100) {
-    //         return alert(this.$t("UPDATE_SLOGAN_FAIL_TOO_LOOG_MSG"));
-    //       }
-    //       setGg(this.itemId, ad)
-    //         .then(() => {
-    //           this.$store.dispatch("FETCH_AD", this.itemId);
-    //         })
-    //         .catch(e => {
-    //           alert(this.$t("UPDATE_SLOGAN_FAIL_MSG"));
-    //           console.log(e);
-    //         });
-    //     }
-    //     return 0;
-    //   }
   }
 };
 </script>
