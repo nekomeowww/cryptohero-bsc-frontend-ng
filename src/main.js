@@ -14,7 +14,7 @@ Vue.config.productionTip = false;
 Vue.use(VueLazyload);
 Vue.use(AsyncComputed);
 Vue.use(vueConfig, config);
-Vue.config.devtools = true
+Vue.config.devtools = true;
 
 new Vue({
   router,
