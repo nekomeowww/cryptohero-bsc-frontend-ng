@@ -174,7 +174,10 @@ export default {
     },
     toDisplayedPrice(priceInWei) {
       const { payTokenInfo } = this;
-      const readable = toReadablePrice(priceInWei, (payTokenInfo && payTokenInfo.decimals) || 4);
+      const readable = toReadablePrice(
+        priceInWei,
+        (payTokenInfo && payTokenInfo.decimals) || 4
+      );
       return `${readable.price} ${payTokenInfo && payTokenInfo.symbol}`;
     }
   }
