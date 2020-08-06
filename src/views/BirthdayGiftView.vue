@@ -9,6 +9,6 @@
 </template>
 
 <script>
-// import { buyItem, setGg, setNextPrice } from '@/api';
+// import { buyItem, setGg } from '@/api';
 // import { toReadablePrice } from '@/util';
 </script>

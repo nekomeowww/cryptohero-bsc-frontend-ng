@@ -28,9 +28,9 @@
     </Notification>
     <Notification class="message is-success" v-else-if="buyStep === 3">
       <template v-slot:title>
-        购买成功
+        交易发送成功
       </template>
-      请稍后手动刷新页面，即可确认卡牌购买情况。
+      {{$t("BUY_SUCCESS_MSG")}}
     </Notification>
     <Notification class="message is-danger" v-else>
       <template v-slot:title>

@@ -83,12 +83,6 @@ export const getNextPrice = async (id, time = 0) => {
   return 0;
 };
 
-// price为用户成功发起交易的交易价格，调用setNextPrice后，nextPrice会变为此价格的1.1倍
-export const setNextPrice = async (id, price) => {
-  // @todo: need rewrite
-  return price * 1.1;
-};
-
 export const getItem = async id => {
   const exist = await cryptoWaterMarginContract.methods.tokenExists(id).call();
   if (!exist) return null;
