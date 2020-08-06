@@ -130,14 +130,15 @@ export const BatchGetCardsItem = async () => {
   return cards;
 };
 
-export const buyItem = async (id, price, from) => {
-  await erc20Token.methods.approve(network.contract, price).send({
+export const approveSpending = (price, from) =>
+  erc20Token.methods.approve(network.contract, price).send({
     from
   });
-  return cryptoWaterMarginContract.methods.buy(id).send({
+
+export const buyItem = (id, from) =>
+  cryptoWaterMarginContract.methods.buy(id).send({
     from
   });
-};
 
 export const getTokenBalanceOf = address =>
   erc20Token.methods.balanceOf(address).call();
