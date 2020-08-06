@@ -53,8 +53,8 @@
 
           <template v-if="notOwner">
             <div class="buttons">
-              <button class="button is-danger is-outlined" @click="onBuy(1)">
-                {{ $t("BUY_BTN") }}
+              <button class="button is-danger is-outlined" @click="onBuy(1)" :disabled="isBuying">
+                {{ isBuying ? $t("BUYING_BTN") : $t("BUY_BTN") }}
               </button>
               <!-- <button class="button is-danger is-outlined" @click="onBuy(1.1)">
                 {{ $t("PREMIUM_BUY_BTN", { rate: "10%" }) }}
@@ -96,7 +96,7 @@
 </template>
 
 <script>
-import { buyItem, approveSpending, setNextPrice } from "@/api";
+import { buyItem, approveSpending } from "@/api";
 import { toReadablePrice } from "@/util";
 import BuyNotifications from "../components/BuyNotifications";
 import { mapState } from "vuex";
@@ -105,7 +105,8 @@ export default {
   name: "item-view",
 
   data: () => ({
-    buyStep: 0
+    buyStep: 0,
+    isBuying: false
   }),
 
   components: {
@@ -159,18 +160,18 @@ export default {
       }
       const buyPrice = (this.item.price * rate).toFixed(0);
       try {
+        this.isBuying = true;
         this.buyStep = 1;
         await approveSpending(buyPrice, this.me);
         this.buyStep = 2;
         await buyItem(this.itemId, this.me);
         this.buyStep = 3;
-        alert(this.$t("BUY_SUCCESS_MSG"));
-        setNextPrice(this.itemId, buyPrice);
       } catch (e) {
         this.buyStep = -1;
         alert(this.$t("BUY_FAIL_MSG"));
         console.log(e);
       }
+      this.isBuying = false;
     },
     toDisplayedPrice(priceInWei) {
       const { payTokenInfo } = this;
