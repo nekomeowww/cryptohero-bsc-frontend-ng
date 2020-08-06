@@ -40,9 +40,6 @@
                     {{ item.price && toDisplayedPrice(item.price) }}
                   </li>
                 </ul>
-                <!-- <p class="item-slogan">
-                  {{ $t("Slogan") }}: {{ toDisplayedAd(item.id) }}
-                </p> -->
               </div>
             </div>
           </div>

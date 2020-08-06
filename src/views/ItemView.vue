@@ -24,7 +24,7 @@
                         toDisplayedPrice(item.price)
                       }}
                     </p>
-                    <p class="subtitle is-6">{{ $t("Slogan") }}: {{ ad }}</p>
+                    <!-- <p class="subtitle is-6">{{ $t("Slogan") }}: {{ ad }}</p> -->
                   </div>
                 </div>
               </div>
@@ -46,9 +46,9 @@
               <li>{{$t('Current Price')}}：{{toDisplayedPrice(item.price)}}</li>
             </ul>
             <p class="item-slogan">{{$t('Slogan')}}: {{ad}}</p>-->
-            <article v-if="notOwner" class="message is-warning">
+            <!-- <article v-if="notOwner" class="message is-warning">
               <div class="message-body">{{ $t("EDIT_SLOGAN_TIP") }}</div>
-            </article>
+            </article> -->
           </div>
 
           <template v-if="notOwner">
