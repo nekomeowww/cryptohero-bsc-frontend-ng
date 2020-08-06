@@ -27,6 +27,7 @@ export default {
   User: "ユーザー",
   "His Cards": "彼・彼女のカード",
   BUY_BTN: "購入",
+  BUYING_BTN: "購入中...",
   PREMIUM_BUY_BTN: "{rate}プレミアム購入",
   BUY_PRICE_TIP:
     "課金の総額が高くなると、カードの獲得率が一方になる。 トランザクション毎に100以上のガスを投入してこれ以上のスピードで確認される！",

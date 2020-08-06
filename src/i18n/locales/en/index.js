@@ -28,6 +28,7 @@ export default {
   User: "User",
   "His Cards": "His/Her Cards",
   BUY_BTN: "Buy",
+  BUYING_BTN: "Buying...",
   PREMIUM_BUY_BTN: "{rate} Premium to buy",
   BUY_PRICE_TIP:
     "The higher the bid, the greater the chance of getting it. Use 100+gas to make the transaction proved fast!",
