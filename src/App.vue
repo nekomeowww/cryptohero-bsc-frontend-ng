@@ -25,7 +25,7 @@ export default {
   methods: {
     ...mapActions(["FETCH_ME", "FetchCards"]),
     initAppName() {
-      document.title = getAppName()
+      document.title = getAppName();
     }
   },
   mounted() {

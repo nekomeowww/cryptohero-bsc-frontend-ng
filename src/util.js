@@ -9,6 +9,6 @@ export const toReadablePrice = (fromPrice, decimals) => {
 
 export const getAppName = () => {
   const appName = process.env.VUE_APP_DisplayAppName;
-  if (appName) return process.env.VUE_APP_DisplayAppName
-  else return "Yet another TokenHero"
-}
+  if (appName) return process.env.VUE_APP_DisplayAppName;
+  else return "Yet another TokenHero";
+};
