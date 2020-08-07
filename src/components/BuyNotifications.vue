@@ -2,7 +2,7 @@
   <div class="notifications" v-if="payTokenInfo">
     <Notification v-if="buyStep === 0">
       <template v-slot:title>
-        这个卡牌需要 {{ payTokenInfo.name }}币 ({{ payTokenInfo.symbol }})
+        这个卡牌需要 「{{ payTokenInfo.name }}」币 ({{ payTokenInfo.symbol }})
         才能购买
       </template>
       购买步骤：
@@ -14,7 +14,7 @@
       <template v-slot:title>
         需要消费授权
       </template>
-      正在使用 {{ payTokenInfo.name }}币 ({{ payTokenInfo.symbol }})
+      正在使用 「{{ payTokenInfo.name }}」 代币 ({{ payTokenInfo.symbol }})
       购买这张卡牌， <br />请授权（Approve）我们的卡牌合约从你的账户中扣除
       {{ toDisplayedPrice(price) }}。
       <br />
