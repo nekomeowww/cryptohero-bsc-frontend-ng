@@ -1,9 +1,10 @@
 import FAQs_CONTENT from "raw-loader!./faq.html";
 import PRIVACY_CONTENT from "raw-loader!./privacy.html";
 import TERMS_CONTENT from "raw-loader!./terms.html";
+import { getAppName } from "../../../util";
 
 export default {
-  TokenHero: "Fan票水浒",
+  TokenHero: getAppName(),
   "My Cards": "我的卡牌",
   "Sign In": "登录游戏",
   Home: "首页",

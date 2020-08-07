@@ -1,9 +1,10 @@
 import FAQs_CONTENT from "raw-loader!./faq.html";
 import PRIVACY_CONTENT from "raw-loader!./privacy.html";
 import TERMS_CONTENT from "raw-loader!./terms.html";
+import { getAppName } from "../../../util";
 
 export default {
-  TokenHero: "TokenHero",
+  TokenHero: getAppName(),
   "My Cards": "My Cards",
   "Sign In": "Sign In",
   Home: "Home",
