@@ -53,7 +53,11 @@
 
           <template v-if="notOwner">
             <div class="buttons">
-              <button class="button is-danger is-outlined" @click="onBuy(1)" :disabled="isBuying">
+              <button
+                class="button is-danger is-outlined"
+                @click="onBuy(1)"
+                :disabled="isBuying"
+              >
                 {{ isBuying ? $t("BUYING_BTN") : $t("BUY_BTN") }}
               </button>
               <!-- <button class="button is-danger is-outlined" @click="onBuy(1.1)">

@@ -30,7 +30,7 @@
       <template v-slot:title>
         交易发送成功
       </template>
-      {{$t("BUY_SUCCESS_MSG")}}
+      {{ $t("BUY_SUCCESS_MSG") }}
     </Notification>
     <Notification class="message is-danger" v-else>
       <template v-slot:title>
