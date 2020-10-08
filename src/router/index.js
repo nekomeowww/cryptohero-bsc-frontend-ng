@@ -7,6 +7,7 @@ import FaqView from "@/views/FaqView";
 import UserView from "@/views/UserView";
 import TermView from "@/views/TermView";
 import PrivacyView from "@/views/PrivacyView";
+import Referral from "@/views/Referral";
 
 Vue.use(VueRouter);
 
@@ -31,6 +32,11 @@ const routes = [
     name: "User",
     path: "/user/:address",
     component: UserView
+  },
+  {
+    name: "Referral",
+    path: "/referral",
+    component: Referral
   },
   {
     name: "FAQ",

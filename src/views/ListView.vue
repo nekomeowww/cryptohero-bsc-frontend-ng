@@ -4,7 +4,7 @@
       <pulse-loader></pulse-loader>
     </div>
     <div class="new-release-time">
-      <p> New release: hh:mm:ss </p>
+      <p>New release: hh:mm:ss</p>
     </div>
     <ItemList :itemIds="itemIds" />
   </div>
