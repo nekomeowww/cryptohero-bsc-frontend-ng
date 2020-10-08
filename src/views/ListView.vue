@@ -3,6 +3,9 @@
     <div v-if="loading" class="loader-wrapper">
       <pulse-loader></pulse-loader>
     </div>
+    <div class="new-release-time">
+      <p> New release: hh:mm:ss </p>
+    </div>
     <ItemList :itemIds="itemIds" />
   </div>
 </template>
@@ -56,5 +59,26 @@ export default {
   align-items: center;
   justify-content: center;
   height: 100vh;
+}
+
+.new-release-time {
+  position: relative;
+  padding: 12px 0;
+  overflow: hidden;
+}
+.new-release-time p {
+  width: 100%;
+  text-align: center;
+  transform: translateX(100%);
+  animation: scroll-left 20s linear infinite;
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
 }
 </style>
