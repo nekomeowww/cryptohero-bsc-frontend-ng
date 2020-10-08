@@ -107,8 +107,9 @@ export const getItem = async id => {
 };
 
 export const BatchGetCardsItem = async () => {
+  let len = await cryptoWaterMarginContract.methods.totalSupply().call();
   const rawResultArray = await BatchGetCards.methods
-    .getCard(network.contract, 114)
+    .getCard(network.contract, len)
     .call();
   const cards = rawResultArray.map(({ id, nextPrice, owner, price }) => {
     const card = config.cards[id] || {};
