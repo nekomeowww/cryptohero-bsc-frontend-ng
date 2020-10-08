@@ -7,6 +7,7 @@
         <input v-model="link" disabled class="rel-link-input">
         <button class="rel-link-copy" @click="copyToClipboard">Copy</button>
       </div>
+      <span class="rel-address">Current Address: {{text}}</span>
     </div>
   </div>
 </template>
@@ -15,20 +16,24 @@
 
 import web3 from "@/web3";
 import { encryptText } from '@/util';
+import { decryptText } from '../util';
 
 export default {
   data() {
     return {
       text: "",
       link: "",
+      encrypted: ""
     };
   },
   methods: {
     async getAccountReady() {
       const [address] = await web3.eth.getAccounts();
       this.text = address
-      this.link = encryptText(this.text)
-      this.link = window.location.origin + "/referral?l=" + this.link
+      this.encrypted = encryptText(this.text)
+      this.link = window.location.origin + "/referral?l=" + this.encrypted
+      const result = decryptText(this.encrypted)
+      alert(result)
     },
     copyToClipboard () {
       console.log('copy')
@@ -91,5 +96,8 @@ export default {
 .rel-link-copy:hover {
   border: 2px solid #75c2f8;
   background-color: #75C2F8;
+}
+.rel-address {
+  font-size: 14px;
 }
 </style>
