@@ -5,9 +5,9 @@ import * as config from "@/config";
 import timeout from "timeout-then";
 import cryptoWaterMarginABI from "./abi/cryptoWaterMargin.json";
 import ERC20ABI from "./abi/ERC20.json";
+import BatchGetCardsABI from "./abi/BatchGetCards.json";
 
 const network = config.network[97];
-
 const cryptoWaterMarginContract = new web3.eth.Contract(
   cryptoWaterMarginABI,
   network.contract
@@ -15,8 +15,8 @@ const cryptoWaterMarginContract = new web3.eth.Contract(
 const erc20Token = new web3.eth.Contract(ERC20ABI, network.token);
 
 const BatchGetCards = new web3.eth.Contract(
-  cryptoWaterMarginABI,
-  network.contract
+  BatchGetCardsABI,
+  "0x2DE5E632aCceB2D993C5572Fd7D771E8aA18Fcd6"
 );
 
 let store = [];
