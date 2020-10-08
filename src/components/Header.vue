@@ -21,6 +21,9 @@
         <router-link class="navbar-item" :to="{ name: 'FAQ' }">
           {{ $t("FAQs") }}
         </router-link>
+        <router-link class="navbar-item" :to="{ name: 'Referral' }">
+          推荐拉新
+        </router-link>
       </div>
 
       <div class="navbar-end">
