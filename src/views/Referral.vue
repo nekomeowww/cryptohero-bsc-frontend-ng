@@ -7,21 +7,27 @@
         <input v-model="link" disabled class="rel-link-input" />
         <button class="rel-link-copy" @click="copyToClipboard">Copy</button>
       </div>
-      <span class="rel-address">Current Address: {{ text }}</span>
+      <span class="rel-address">Current Address: {{ text }}</span
+      ><br />
+      <span v-if="inviter" class="rel-address"
+        >inviter Address: {{ text }}</span
+      >
     </div>
   </div>
 </template>
 
 <script>
 import web3 from "@/web3";
-import { encryptText, decryptText } from "@/util";
+import { encryptText, decryptText, setCookie } from "@/util";
+import { getCookie } from "../util";
 
 export default {
   data() {
     return {
       text: "",
       link: "",
-      encrypted: ""
+      encrypted: "",
+      inviter: ""
     };
   },
   methods: {
@@ -74,7 +80,11 @@ export default {
       try {
         const query = this.queryParse(window.location.search);
         const res = decryptText(query.l);
+        this.inviter = res;
+        setCookie("invitee_id", this.inviter, 3);
         alert(res);
+        const invitee = getCookie("invitee_id");
+        alert("get cookie: " + invitee);
       } catch (e) {
         console.error(e);
       }
