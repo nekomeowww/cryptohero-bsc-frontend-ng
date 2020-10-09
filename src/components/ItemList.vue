@@ -37,7 +37,10 @@
                   </li>
                   <li>
                     {{ $t("Current Price") }}:
-                    {{ item.price && toDisplayedPrice(item.price) }}
+                    {{
+                      toPlainString(item.price) &&
+                        toPlainString(toDisplayedPrice(item.price))
+                    }}
                   </li>
                 </ul>
               </div>
@@ -70,6 +73,19 @@ export default {
   },
 
   methods: {
+    toPlainString(num) {
+      return ("" + num).replace(/(-?)(\d*)\.?(\d+)e([+-]\d+)/, function(
+        a,
+        b,
+        c,
+        d,
+        e
+      ) {
+        return e < 0
+          ? b + "0." + Array(1 - e - c.length).join(0) + c + d
+          : b + c + d + Array(e - d.length + 1).join(0);
+      });
+    },
     toDisplayedPrice(priceInWei) {
       const { payTokenInfo } = this;
       const readable = toReadablePrice(priceInWei, payTokenInfo.decimals);

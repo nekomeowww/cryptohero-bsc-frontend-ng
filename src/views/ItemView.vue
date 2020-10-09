@@ -21,7 +21,7 @@
                     <p class="title is-5">{{ $t("Owner") }} {{ ownerTag }}</p>
                     <p class="subtitle is-6">
                       {{ $t("Current Price") }}：{{
-                        toDisplayedPrice(item.price)
+                        toPlainString(toDisplayedPrice(item.price))
                       }}
                     </p>
                     <!-- <p class="subtitle is-6">{{ $t("Slogan") }}: {{ ad }}</p> -->
@@ -177,13 +177,27 @@ export default {
       }
       this.isBuying = false;
     },
+    toPlainString(num) {
+      return ("" + num).replace(/(-?)(\d*)\.?(\d+)e([+-]\d+)/, function(
+        a,
+        b,
+        c,
+        d,
+        e
+      ) {
+        return e < 0
+          ? b + "0." + Array(1 - e - c.length).join(0) + c + d
+          : b + c + d + Array(e - d.length + 1).join(0);
+      });
+    },
     toDisplayedPrice(priceInWei) {
       const { payTokenInfo } = this;
-      const readable = toReadablePrice(
+      let readable = toReadablePrice(
         priceInWei,
-        (payTokenInfo && payTokenInfo.decimals) || 4
+        payTokenInfo && payTokenInfo.decimals
       );
-      return `${readable.price} ${payTokenInfo && payTokenInfo.symbol}`;
+      const price = this.toPlainString(readable.price);
+      return `${price} ${payTokenInfo && payTokenInfo.symbol}`;
     }
   }
 };
