@@ -38,7 +38,6 @@ export default {
       this.link = window.location.origin + "/referral?l=" + this.encrypted;
     },
     copyToClipboard() {
-      console.log("copy");
       const text = this.link;
       if (window.clipboardData && window.clipboardData.setData) {
         // IE specific code path to prevent textarea being shown while dialog is visible.
@@ -53,7 +52,6 @@ export default {
         document.body.appendChild(textarea);
         textarea.select();
         try {
-          console.log("success");
           return document.execCommand("copy"); // Security exception may be thrown by some browsers.
         } catch (ex) {
           console.error("failed");
