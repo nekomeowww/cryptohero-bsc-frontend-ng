@@ -4,19 +4,17 @@
       Referral
 
       <div class="rel-link">
-        <input v-model="link" disabled class="rel-link-input">
+        <input v-model="link" disabled class="rel-link-input" />
         <button class="rel-link-copy" @click="copyToClipboard">Copy</button>
       </div>
-      <span class="rel-address">Current Address: {{text}}</span>
+      <span class="rel-address">Current Address: {{ text }}</span>
     </div>
   </div>
 </template>
 
 <script>
-
 import web3 from "@/web3";
-import { encryptText } from '@/util';
-import { decryptText } from '../util';
+import { encryptText, decryptText } from "@/util";
 
 export default {
   data() {
@@ -29,38 +27,58 @@ export default {
   methods: {
     async getAccountReady() {
       const [address] = await web3.eth.getAccounts();
-      this.text = address
-      this.encrypted = encryptText(this.text)
-      this.link = window.location.origin + "/referral?l=" + this.encrypted
-      const result = decryptText(this.encrypted)
-      alert(result)
+      this.text = address;
+      this.encrypted = encryptText(this.text);
+      this.link = window.location.origin + "/referral?l=" + this.encrypted;
     },
-    copyToClipboard () {
-      console.log('copy')
-      const text = this.link
+    copyToClipboard() {
+      console.log("copy");
+      const text = this.link;
       if (window.clipboardData && window.clipboardData.setData) {
         // IE specific code path to prevent textarea being shown while dialog is visible.
-        return window.clipboardData.setData('Text', text)
-      } else if (document.queryCommandSupported && document.queryCommandSupported('copy')) {
-        var textarea = document.createElement('textarea')
-        textarea.textContent = text
-        textarea.style.position = 'fixed' // Prevent scrolling to bottom of page in MS Edge.
-        document.body.appendChild(textarea)
-        textarea.select()
+        return window.clipboardData.setData("Text", text);
+      } else if (
+        document.queryCommandSupported &&
+        document.queryCommandSupported("copy")
+      ) {
+        var textarea = document.createElement("textarea");
+        textarea.textContent = text;
+        textarea.style.position = "fixed"; // Prevent scrolling to bottom of page in MS Edge.
+        document.body.appendChild(textarea);
+        textarea.select();
         try {
-          console.log('success')
-          return document.execCommand('copy') // Security exception may be thrown by some browsers.
+          console.log("success");
+          return document.execCommand("copy"); // Security exception may be thrown by some browsers.
         } catch (ex) {
-          console.error('failed')
-          return false
+          console.error("failed");
+          return false;
         } finally {
-          document.body.removeChild(textarea)
+          document.body.removeChild(textarea);
         }
       }
+    },
+    queryParse(search) {
+      if (!search) return {};
+      const queryString = search[0] === "?" ? search.substring(1) : search;
+      const query = {};
+      queryString.split("&").forEach(queryStr => {
+        const [key, value] = queryStr.split("=");
+        if (key) query[decodeURIComponent(key)] = decodeURIComponent(value);
+      });
+      return query;
     }
   },
   mounted() {
-    this.getAccountReady()
+    this.getAccountReady();
+    if (window.location.search) {
+      try {
+        const query = this.queryParse(window.location.search);
+        const res = decryptText(query.l);
+        alert(res);
+      } catch (e) {
+        console.error(e);
+      }
+    }
   }
 };
 </script>
@@ -89,13 +107,13 @@ export default {
   color: white;
   padding: 0px 10px 0px 10px;
   border: 2px solid #48a2e2;
-  background-color: #48A2E2;
+  background-color: #48a2e2;
   border-top-right-radius: 999px;
   border-bottom-right-radius: 999px;
 }
 .rel-link-copy:hover {
   border: 2px solid #75c2f8;
-  background-color: #75C2F8;
+  background-color: #75c2f8;
 }
 .rel-address {
   font-size: 14px;
