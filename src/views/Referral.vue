@@ -10,7 +10,7 @@
       <span class="rel-address">Current Address: {{ text }}</span
       ><br />
       <span v-if="inviter" class="rel-address"
-        >inviter Address: {{ text }}</span
+        >Inviter Address: {{ inviter }}</span
       >
     </div>
   </div>
@@ -19,7 +19,7 @@
 <script>
 import web3 from '@/web3'
 import { encryptText, decryptText, setCookie } from '@/util'
-import { getCookie } from '../util'
+import { clearCookie, getCookie } from '../util'
 
 export default {
   data () {
@@ -74,11 +74,13 @@ export default {
   },
   mounted () {
     this.getAccountReady()
+    const c = getCookie('invitee_id')
     if (window.location.search) {
       try {
         const query = this.queryParse(window.location.search)
         const res = decryptText(query.l)
         this.inviter = res
+        clearCookie('invitee_id')
         setCookie('invitee_id', this.inviter, 3)
         alert(res)
         const invitee = getCookie('invitee_id')
@@ -86,6 +88,8 @@ export default {
       } catch (e) {
         console.error(e)
       }
+    } else if (c) {
+      this.inviter = c
     }
   }
 }
