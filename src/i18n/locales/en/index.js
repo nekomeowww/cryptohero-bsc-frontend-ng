@@ -44,5 +44,8 @@ export default {
   NoMetaMaskMsg:
     'You can only play me on a desktop browser like Chrome or Firefox.',
   LoginOKTitle: 'Welcome Back!',
-  LoginOKMsg: 'Click Here to see your collection'
+  LoginOKMsg: 'Click Here to see your collection',
+  YourReferral: 'Your Referral',
+  ChangeReferral: 'You can obtain a new referral link to change it',
+  RevokeReferral: 'Revoke Referral'
 }

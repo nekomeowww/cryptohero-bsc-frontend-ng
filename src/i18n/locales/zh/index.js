@@ -43,5 +43,8 @@ export default {
   NoMetaMaskMsg:
     '你只能在支持 Web3 的浏览器（如 Google Chrome 或 FireFox），并安装 MetaMask 插件才能正常使用这个网站',
   LoginOKTitle: '欢迎回来',
-  LoginOKMsg: '点击这里查看你的卡片收藏'
+  LoginOKMsg: '点击这里查看你的卡片收藏',
+  YourReferral: '你的推荐人',
+  ChangeReferral: '你可以获取一个新的推荐链接来改变推荐人',
+  RevokeReferral: '撤销当前推荐人'
 }

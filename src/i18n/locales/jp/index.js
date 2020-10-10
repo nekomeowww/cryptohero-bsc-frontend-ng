@@ -42,5 +42,8 @@ export default {
   NoMetaMaskMsg:
     'ChromeやFirefoxなどのデスクトップブラウザでのみ再生できます。',
   LoginOKTitle: 'お帰りなさい!',
-  LoginOKMsg: 'あなたのカードコレクションを見るにはここをクリック'
+  LoginOKMsg: 'あなたのカードコレクションを見るにはここをクリック',
+  YourReferral: 'あなたの紹介者',
+  ChangeReferral: '紹介者を変更するための新しいリンクを取得する',
+  RevokeReferral: '現在の紹介者を取り消す'
 }
