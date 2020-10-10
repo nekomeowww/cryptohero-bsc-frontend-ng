@@ -130,10 +130,19 @@ export const approveSpending = (price, from) =>
     from
   })
 
-export const buyItem = (id, from) =>
+export const buyItem = (id, from) => {
+  console.log('buy')
   cryptoWaterMarginContract.methods.buy(id).send({
     from
   })
+}
+
+export const butItemWithReferral = (id, from, referral) => {
+  console.log('buy with referral')
+  cryptoWaterMarginContract.methods.buyWithReferral(id, referral).send({
+    from
+  })
+}
 
 export const getTokenBalanceOf = address =>
   erc20Token.methods.balanceOf(address).call()

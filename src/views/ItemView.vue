@@ -54,6 +54,7 @@
           <template v-if="notOwner">
             <div class="buttons">
               <button
+                style="outline: none;"
                 class="button is-danger is-outlined"
                 @click="onBuy(1)"
                 :disabled="isBuying"
@@ -75,6 +76,11 @@
               <button class="button is-danger is-outlined" @click="onBuy(1.5)">
                 {{ $t("PREMIUM_BUY_BTN", { rate: "50%" }) }}
               </button> -->
+            </div>
+            <div v-if="hasReferral" class="referral-box">
+              <div><p class="referral-title">{{ $t('YourReferral') }}:</p><p>{{ invitee }}</p></div>
+              <button class="revoke-btn" @click="revokeReferral">{{ $t('RevokeReferral') }}</button>
+              <span class="referral-notice">{{ $t('ChangeReferral') }}</span>
             </div>
             <BuyNotifications
               v-if="payTokenInfo"
@@ -100,17 +106,20 @@
 </template>
 
 <script>
-import { buyItem, approveSpending } from "@/api";
-import { toReadablePrice } from "@/util";
-import BuyNotifications from "../components/BuyNotifications";
-import { mapState } from "vuex";
+import { buyItem, butItemWithReferral, approveSpending } from '@/api'
+import { toReadablePrice } from '@/util'
+import BuyNotifications from '../components/BuyNotifications'
+import { mapState } from 'vuex'
+import { clearCookie, getCookie } from '../util'
 
 export default {
-  name: "item-view",
+  name: 'item-view',
 
   data: () => ({
     buyStep: 0,
-    isBuying: false
+    isBuying: false,
+    hasReferral: false,
+    invitee: ''
   }),
 
   components: {
@@ -118,67 +127,74 @@ export default {
   },
 
   computed: {
-    ...mapState(["payTokenInfo"]),
-    ownerTag() {
-      return this.item.owner.slice(-6).toUpperCase();
+    ...mapState(['payTokenInfo']),
+    ownerTag () {
+      return this.item.owner.slice(-6).toUpperCase()
     },
-    itemId() {
-      return this.$route.params.id;
+    itemId () {
+      return this.$route.params.id
     },
-    me() {
-      return this.$store.state.me || {};
+    me () {
+      return this.$store.state.me || {}
     },
-    ownerAddress() {
-      return this.item.owner;
+    ownerAddress () {
+      return this.item.owner
     },
-    item() {
-      return this.$store.state.items[this.itemId];
+    item () {
+      return this.$store.state.items[this.itemId]
     },
-    ad() {
-      return this.$store.state.ads[this.itemId];
+    ad () {
+      return this.$store.state.ads[this.itemId]
     },
-    getCardImage() {
-      return `https://hero-static.mttk.net/assets/heros/${this.itemId}.jpg`;
+    getCardImage () {
+      return `https://hero-static.mttk.net/assets/heros/${this.itemId}.jpg`
     },
-    getCardBackSideImage() {
-      return `https://hero-static.mttk.net/assets/back/${this.itemId}.jpeg`;
+    getCardBackSideImage () {
+      return `https://hero-static.mttk.net/assets/back/${this.itemId}.jpeg`
     },
-    isOwner() {
-      return this.item.owner === this.me;
+    isOwner () {
+      return this.item.owner === this.me
     },
-    notOwner() {
-      return !this.isOwner;
+    notOwner () {
+      return !this.isOwner
     }
   },
-  async created() {
-    this.$store.dispatch("FETCH_ITEM", this.itemId);
-    this.$store.dispatch("FETCH_AD", this.itemId);
+  async created () {
+    this.$store.dispatch('FETCH_ITEM', this.itemId)
+    this.$store.dispatch('FETCH_AD', this.itemId)
+
+    const c = getCookie('invitee_id')
+    if (c) {
+      this.hasReferral = true
+      this.invitee = c
+    }
   },
 
   watch: {},
 
   methods: {
-    async onBuy(rate) {
+    async onBuy (rate) {
       if (this.$store.state.signInError) {
-        return this.$router.push({ name: "Login" });
+        return this.$router.push({ name: 'Login' })
       }
-      const buyPrice = (this.item.price * rate).toFixed(0);
+      const buyPrice = (this.item.price * rate).toFixed(0)
       try {
-        this.isBuying = true;
-        this.buyStep = 1;
-        await approveSpending(buyPrice, this.me);
-        this.buyStep = 2;
-        await buyItem(this.itemId, this.me);
-        this.buyStep = 3;
+        this.isBuying = true
+        this.buyStep = 1
+        await approveSpending(buyPrice, this.me)
+        this.buyStep = 2
+        if (this.hasReferral) await butItemWithReferral(this.itemId, this.me, this.invitee)
+        else await buyItem(this.itemId, this.me)
+        this.buyStep = 3
       } catch (e) {
-        this.buyStep = -1;
-        alert(this.$t("BUY_FAIL_MSG"));
-        console.log(e);
+        this.buyStep = -1
+        alert(this.$t('BUY_FAIL_MSG'))
+        console.log(e)
       }
-      this.isBuying = false;
+      this.isBuying = false
     },
-    toPlainString(num) {
-      return ("" + num).replace(/(-?)(\d*)\.?(\d+)e([+-]\d+)/, function(
+    toPlainString (num) {
+      return ('' + num).replace(/(-?)(\d*)\.?(\d+)e([+-]\d+)/, function (
         a,
         b,
         c,
@@ -186,26 +202,65 @@ export default {
         e
       ) {
         return e < 0
-          ? b + "0." + Array(1 - e - c.length).join(0) + c + d
-          : b + c + d + Array(e - d.length + 1).join(0);
-      });
+          ? b + '0.' + Array(1 - e - c.length).join(0) + c + d
+          : b + c + d + Array(e - d.length + 1).join(0)
+      })
     },
-    toDisplayedPrice(priceInWei) {
-      const { payTokenInfo } = this;
-      let readable = toReadablePrice(
+    toDisplayedPrice (priceInWei) {
+      const { payTokenInfo } = this
+      const readable = toReadablePrice(
         priceInWei,
         payTokenInfo && payTokenInfo.decimals
-      );
-      const price = this.toPlainString(readable.price);
-      return `${price} ${payTokenInfo && payTokenInfo.symbol}`;
+      )
+      const price = this.toPlainString(readable.price)
+      return `${price} ${payTokenInfo && payTokenInfo.symbol}`
+    },
+    revokeReferral () {
+      this.hasReferral = false
+      this.invitee = ''
+      clearCookie('invitee_id')
     }
   }
-};
+}
 </script>
 <style scoped>
 .item-slogan {
   overflow-wrap: break-word;
   word-wrap: break-word;
   word-break: break-all;
+}
+.referral-box {
+  border: 1px solid #48a2e2;
+  padding: 20px;
+  color: black;
+  height: fit-content;
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  margin-bottom: 30px;
+  background-color: #ECF5FC;
+  border-radius: 4px;
+}
+.referral-title {
+  color: #12537E;
+  font-size: 20px;
+  font-weight: 500;
+}
+.revoke-btn {
+  margin: 10px 0;
+  padding: 10px;
+  outline: none;
+  background-color: transparent;
+  border: 1px solid;
+  border-radius: 4px;
+  border-color: #ff3860;
+  color: #ff3860;
+  font-size: 1rem;
+}
+.revoke-btn:hover {
+  background-color: #ff3860;
+  border-color: #ff3860;
+  color: #fff;
 }
 </style>
