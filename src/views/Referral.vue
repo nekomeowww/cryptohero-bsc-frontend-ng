@@ -17,78 +17,78 @@
 </template>
 
 <script>
-import web3 from "@/web3";
-import { encryptText, decryptText, setCookie } from "@/util";
-import { getCookie } from "../util";
+import web3 from '@/web3'
+import { encryptText, decryptText, setCookie } from '@/util'
+import { getCookie } from '../util'
 
 export default {
-  data() {
+  data () {
     return {
-      text: "",
-      link: "",
-      encrypted: "",
-      inviter: ""
-    };
+      text: '',
+      link: '',
+      encrypted: '',
+      inviter: ''
+    }
   },
   methods: {
-    async getAccountReady() {
-      const [address] = await web3.eth.getAccounts();
-      this.text = address;
-      this.encrypted = encryptText(this.text);
-      this.link = window.location.origin + "/referral?l=" + this.encrypted;
+    async getAccountReady () {
+      const [address] = await web3.eth.getAccounts()
+      this.text = address
+      this.encrypted = encryptText(this.text)
+      this.link = window.location.origin + '/referral?l=' + this.encrypted
     },
-    copyToClipboard() {
-      const text = this.link;
+    copyToClipboard () {
+      const text = this.link
       if (window.clipboardData && window.clipboardData.setData) {
         // IE specific code path to prevent textarea being shown while dialog is visible.
-        return window.clipboardData.setData("Text", text);
+        return window.clipboardData.setData('Text', text)
       } else if (
         document.queryCommandSupported &&
-        document.queryCommandSupported("copy")
+        document.queryCommandSupported('copy')
       ) {
-        var textarea = document.createElement("textarea");
-        textarea.textContent = text;
-        textarea.style.position = "fixed"; // Prevent scrolling to bottom of page in MS Edge.
-        document.body.appendChild(textarea);
-        textarea.select();
+        var textarea = document.createElement('textarea')
+        textarea.textContent = text
+        textarea.style.position = 'fixed' // Prevent scrolling to bottom of page in MS Edge.
+        document.body.appendChild(textarea)
+        textarea.select()
         try {
-          return document.execCommand("copy"); // Security exception may be thrown by some browsers.
+          return document.execCommand('copy') // Security exception may be thrown by some browsers.
         } catch (ex) {
-          console.error("failed");
-          return false;
+          console.error('failed')
+          return false
         } finally {
-          document.body.removeChild(textarea);
+          document.body.removeChild(textarea)
         }
       }
     },
-    queryParse(search) {
-      if (!search) return {};
-      const queryString = search[0] === "?" ? search.substring(1) : search;
-      const query = {};
-      queryString.split("&").forEach(queryStr => {
-        const [key, value] = queryStr.split("=");
-        if (key) query[decodeURIComponent(key)] = decodeURIComponent(value);
-      });
-      return query;
+    queryParse (search) {
+      if (!search) return {}
+      const queryString = search[0] === '?' ? search.substring(1) : search
+      const query = {}
+      queryString.split('&').forEach(queryStr => {
+        const [key, value] = queryStr.split('=')
+        if (key) query[decodeURIComponent(key)] = decodeURIComponent(value)
+      })
+      return query
     }
   },
-  mounted() {
-    this.getAccountReady();
+  mounted () {
+    this.getAccountReady()
     if (window.location.search) {
       try {
-        const query = this.queryParse(window.location.search);
-        const res = decryptText(query.l);
-        this.inviter = res;
-        setCookie("invitee_id", this.inviter, 3);
-        alert(res);
-        const invitee = getCookie("invitee_id");
-        alert("get cookie: " + invitee);
+        const query = this.queryParse(window.location.search)
+        const res = decryptText(query.l)
+        this.inviter = res
+        setCookie('invitee_id', this.inviter, 3)
+        alert(res)
+        const invitee = getCookie('invitee_id')
+        alert('get cookie: ' + invitee)
       } catch (e) {
-        console.error(e);
+        console.error(e)
       }
     }
   }
-};
+}
 </script>
 
 <style scoped>

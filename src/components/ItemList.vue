@@ -53,28 +53,28 @@
 </template>
 
 <script>
-import { toReadablePrice } from "@/util";
-import { mapState } from "vuex";
+import { toReadablePrice } from '@/util'
+import { mapState } from 'vuex'
 
 export default {
-  name: "item-lists",
-  props: ["itemIds"],
+  name: 'item-lists',
+  props: ['itemIds'],
 
   data: () => ({}),
 
   computed: {
-    ...mapState(["payTokenInfo"]),
-    items() {
+    ...mapState(['payTokenInfo']),
+    items () {
       return this.itemIds.map(id => {
-        const item = this.$store.state.items[id];
-        return item || { id };
-      });
+        const item = this.$store.state.items[id]
+        return item || { id }
+      })
     }
   },
 
   methods: {
-    toPlainString(num) {
-      return ("" + num).replace(/(-?)(\d*)\.?(\d+)e([+-]\d+)/, function(
+    toPlainString (num) {
+      return ('' + num).replace(/(-?)(\d*)\.?(\d+)e([+-]\d+)/, function (
         a,
         b,
         c,
@@ -82,28 +82,28 @@ export default {
         e
       ) {
         return e < 0
-          ? b + "0." + Array(1 - e - c.length).join(0) + c + d
-          : b + c + d + Array(e - d.length + 1).join(0);
-      });
+          ? b + '0.' + Array(1 - e - c.length).join(0) + c + d
+          : b + c + d + Array(e - d.length + 1).join(0)
+      })
     },
-    toDisplayedPrice(priceInWei) {
-      const { payTokenInfo } = this;
-      const readable = toReadablePrice(priceInWei, payTokenInfo.decimals);
-      return `${readable.price} ${payTokenInfo && payTokenInfo.symbol}`;
+    toDisplayedPrice (priceInWei) {
+      const { payTokenInfo } = this
+      const readable = toReadablePrice(priceInWei, payTokenInfo.decimals)
+      return `${readable.price} ${payTokenInfo && payTokenInfo.symbol}`
     },
-    toDisplayedAd(id) {
-      const ad = this.$store.state.ads[id];
+    toDisplayedAd (id) {
+      const ad = this.$store.state.ads[id]
       if (ad && ad.length >= 45) {
-        return `${ad.slice(0, 44)} ...`;
+        return `${ad.slice(0, 44)} ...`
       }
-      return ad;
+      return ad
     },
-    getCardImage(id) {
-      return `https://hero-static.mttk.net/assets/heros/${id}.jpg`;
+    getCardImage (id) {
+      return `https://hero-static.mttk.net/assets/heros/${id}.jpg`
     }
   },
 
-  created() {},
+  created () {},
 
   watch: {
     // itemIds(newItemIds) {
@@ -113,7 +113,7 @@ export default {
     //   });
     // }
   }
-};
+}
 </script>
 <style scoped>
 .item-slogan {

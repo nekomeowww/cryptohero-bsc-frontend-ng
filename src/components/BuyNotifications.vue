@@ -42,21 +42,21 @@
 </template>
 
 <script>
-import Notification from "./Notification";
-import { toReadablePrice } from "@/util";
+import Notification from './Notification'
+import { toReadablePrice } from '@/util'
 
 export default {
-  name: "BuyNotifications",
-  props: ["payTokenInfo", "buyStep", "price"],
+  name: 'BuyNotifications',
+  props: ['payTokenInfo', 'buyStep', 'price'],
   components: {
     Notification
   },
   methods: {
-    toDisplayedPrice(priceInWei) {
-      const { payTokenInfo } = this;
-      const readable = toReadablePrice(priceInWei, payTokenInfo.decimals);
-      return `${readable.price} ${payTokenInfo && payTokenInfo.symbol}`;
+    toDisplayedPrice (priceInWei) {
+      const { payTokenInfo } = this
+      const readable = toReadablePrice(priceInWei, payTokenInfo.decimals)
+      return `${readable.price} ${payTokenInfo && payTokenInfo.symbol}`
     }
   }
-};
+}
 </script>

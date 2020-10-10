@@ -33,11 +33,11 @@
 </template>
 
 <script>
-import ItemList from "@/components/ItemList";
-import { getItemsOf } from "@/api";
+import ItemList from '@/components/ItemList'
+import { getItemsOf } from '@/api'
 
 export default {
-  name: "UserView",
+  name: 'UserView',
   components: {
     ItemList
   },
@@ -45,24 +45,24 @@ export default {
     itemIds: []
   }),
   computed: {
-    address() {
-      return this.$route.params.address;
+    address () {
+      return this.$route.params.address
     },
-    getEtherScanURL() {
-      return `https://rinkeby.etherscan.io/address/${this.address}`;
+    getEtherScanURL () {
+      return `https://rinkeby.etherscan.io/address/${this.address}`
     },
-    me() {
-      return this.$store.state.me;
+    me () {
+      return this.$store.state.me
     }
   },
-  async created() {
-    this.itemIds = await getItemsOf(this.$route.params.address);
+  async created () {
+    this.itemIds = await getItemsOf(this.$route.params.address)
   },
 
   watch: {},
 
   methods: {}
-};
+}
 </script>
 <style scoped>
 .user-info-wrapper {

@@ -9,26 +9,26 @@
 </template>
 
 <script>
-import { getGift } from "@/api";
+import { getGift } from '@/api'
 
 export default {
-  name: "HelloWorld",
-  data() {
+  name: 'HelloWorld',
+  data () {
     return {
-      from: "",
-      to: "",
-      message: "",
+      from: '',
+      to: '',
+      message: '',
       value: 0
-    };
+    }
   },
   methods: {
     onBuy: async () => {
-      const gift = await getGift(1);
-      console.log(gift);
+      const gift = await getGift(1)
+      console.log(gift)
     }
   },
-  created() {}
-};
+  created () {}
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

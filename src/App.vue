@@ -11,36 +11,36 @@
 </template>
 
 <script>
-import { getAppName } from "./util";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import { mapActions } from "vuex";
+import { getAppName } from './util'
+import Header from '@/components/Header'
+import Footer from '@/components/Footer'
+import { mapActions } from 'vuex'
 
 export default {
-  name: "App",
+  name: 'App',
   components: {
     Header,
     Footer
   },
   methods: {
-    ...mapActions(["FETCH_ME", "FetchCards"]),
-    initAppName() {
-      document.title = getAppName();
+    ...mapActions(['FETCH_ME', 'FetchCards']),
+    initAppName () {
+      document.title = getAppName()
     }
   },
-  mounted() {
-    this.initAppName();
-    this.FETCH_ME();
-    this.FetchCards();
+  mounted () {
+    this.initAppName()
+    this.FETCH_ME()
+    this.FetchCards()
   },
   computed: {
-    key() {
+    key () {
       return this.$route.name !== undefined
         ? this.$route.name + +new Date()
-        : this.$route + +new Date();
+        : this.$route + +new Date()
     }
   }
-};
+}
 </script>
 
 <style>

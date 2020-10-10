@@ -28,42 +28,42 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions } from 'vuex'
 export default {
-  name: "SignInView",
+  name: 'SignInView',
   computed: {
-    me() {
-      return this.$store.state.me;
+    me () {
+      return this.$store.state.me
     },
-    signInError() {
-      return this.$store.state.signInError;
+    signInError () {
+      return this.$store.state.signInError
     },
-    isNoMetaMask() {
-      return this.signInError === "NO_METAMASK";
+    isNoMetaMask () {
+      return this.signInError === 'NO_METAMASK'
     },
-    isMetaMaskLocked() {
-      return this.signInError === "METAMASK_LOCKED";
+    isMetaMaskLocked () {
+      return this.signInError === 'METAMASK_LOCKED'
     },
-    isNotEnabled() {
-      return this.signInError === "METAMASK_NOT_ENABLED";
+    isNotEnabled () {
+      return this.signInError === 'METAMASK_NOT_ENABLED'
     },
-    jumpToUser() {
-      if (!this.me) return null;
+    jumpToUser () {
+      if (!this.me) return null
       return {
-        name: "User",
+        name: 'User',
         params: { address: this.me }
-      };
+      }
     }
   },
   methods: {
-    ...mapActions(["FETCH_ME"]),
-    async enableWeb3() {
-      console.log("connect");
-      await window.ethereum.enable();
-      await this.FETCH_ME();
+    ...mapActions(['FETCH_ME']),
+    async enableWeb3 () {
+      console.log('connect')
+      await window.ethereum.enable()
+      await this.FETCH_ME()
     }
   }
-};
+}
 </script>
 
 <style scoped></style>
