@@ -1,3 +1,8 @@
 module.exports = {
-  configureWebpack: {}
-};
+  configureWebpack: {
+    module: {
+      rules: [
+      ]
+    }
+  }
+}
