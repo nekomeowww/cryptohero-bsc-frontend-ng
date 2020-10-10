@@ -90,7 +90,6 @@ export const getCookie = cname => {
   const name = cname + '='
   const decodedCookie = decodeURIComponent(document.cookie)
   const ca = decodedCookie.split(';')
-  debugger
   for (let i = 0; i < ca.length; i++) {
     let c = ca[i]
     while (c.charAt(0) === ' ') {
@@ -100,7 +99,6 @@ export const getCookie = cname => {
       return c.substring(name.length, c.length)
     }
   }
-  debugger
   return ''
 }
 
