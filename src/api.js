@@ -130,6 +130,16 @@ export const approveSpending = (price, from) =>
     from
   })
 
+export const getCurrentReferral = async (address) => {
+  const res = await cryptoWaterMarginContract.methods.referralMap(address).call()
+  return res
+}
+
+export const getAllMyReferral = async (address) => {
+  const res = await cryptoWaterMarginContract.methods.subordinateOf(address).call()
+  return res
+}
+
 export const buyItem = (id, from) => {
   console.log('buy')
   cryptoWaterMarginContract.methods.buy(id).send({
