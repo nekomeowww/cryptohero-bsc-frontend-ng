@@ -145,6 +145,7 @@ export default {
   font-size: 14px;
 }
 .rel-list {
+  margin-top: 10px;
   font-size: 14px;
 }
 .rel-list-item {
