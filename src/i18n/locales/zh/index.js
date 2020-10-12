@@ -45,6 +45,6 @@ export default {
   LoginOKTitle: '欢迎回来',
   LoginOKMsg: '点击这里查看你的卡片收藏',
   YourReferral: '你的推荐人',
-  ChangeReferral: '你可以获取一个新的推荐链接来改变推荐人',
-  RevokeReferral: '撤销当前推荐人'
+  referral: '推荐拉新',
+  referredAccount: '已推荐的账号'
 }

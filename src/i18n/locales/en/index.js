@@ -46,6 +46,6 @@ export default {
   LoginOKTitle: 'Welcome Back!',
   LoginOKMsg: 'Click Here to see your collection',
   YourReferral: 'Your Referral',
-  ChangeReferral: 'You can obtain a new referral link to change it',
-  RevokeReferral: 'Revoke Referral'
+  referral: 'Referral',
+  referredAccount: 'Refferred Accounts'
 }
