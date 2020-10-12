@@ -1,23 +1,25 @@
 <template>
   <div class="rel-container">
     <div class="rel-title">
-      Referral
+      {{ $t('referral') }}
 
       <div class="rel-link">
         <input v-model="link" disabled class="rel-link-input" />
         <button class="rel-link-copy" @click="copyToClipboard">Copy</button>
       </div>
-      <span class="rel-address">Current Address: {{ text }}</span
-      ><br />
-      <span v-if="inviter" class="rel-address"
-        >Inviter Address: {{ inviter }}</span
-      >
+      <div class="rel-list">
+        <h4 style="font-size: 18px; color: #48a2e2;">{{ $t('referredAccount') }} ({{ referrals.length }})</h4>
+        <div v-for="(account, index) of referrals" :key="index">
+          <span class="rel-list-item">{{ account }}</span>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import web3 from '@/web3'
+import { getAllMyReferral } from '@/api'
 import { encryptText, decryptText, setCookie } from '@/util'
 import { clearCookie, getCookie } from '../util'
 
@@ -27,10 +29,17 @@ export default {
       text: '',
       link: '',
       encrypted: '',
-      inviter: ''
+      inviter: '',
+      referrals: []
     }
   },
   methods: {
+    async getAllReferrals () {
+      const [address] = await web3.eth.getAccounts()
+      const accounts = await getAllMyReferral(address)
+      console.log(accounts)
+      accounts.forEach(item => this.referrals.push(item))
+    },
     async getAccountReady () {
       const [address] = await web3.eth.getAccounts()
       this.text = address
@@ -72,13 +81,18 @@ export default {
       return query
     }
   },
-  mounted () {
+  async mounted () {
     this.getAccountReady()
+    this.getAllReferrals()
+    const [address] = await web3.eth.getAccounts()
     const c = getCookie('invitee_id')
     if (window.location.search) {
       try {
         const query = this.queryParse(window.location.search)
         const res = decryptText(query.l)
+        if (res === address) {
+          return
+        }
         this.inviter = res
         clearCookie('invitee_id')
         setCookie('invitee_id', this.inviter, 3)
@@ -129,5 +143,13 @@ export default {
 }
 .rel-address {
   font-size: 14px;
+}
+.rel-list {
+  font-size: 14px;
+}
+.rel-list-item {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  display: block;
 }
 </style>
