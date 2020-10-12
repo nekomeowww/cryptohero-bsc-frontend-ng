@@ -78,9 +78,10 @@
               </button> -->
             </div>
             <div v-if="hasReferral" class="referral-box">
-              <div><p class="referral-title">{{ $t('YourReferral') }}:</p><p>{{ invitee }}</p></div>
-              <button class="revoke-btn" @click="revokeReferral">{{ $t('RevokeReferral') }}</button>
-              <span class="referral-notice">{{ $t('ChangeReferral') }}</span>
+              <div>
+                <p class="referral-title">{{ $t('YourReferral') }}:</p>
+                <p>{{ invitee }}</p>
+              </div>
             </div>
             <BuyNotifications
               v-if="payTokenInfo"
@@ -106,11 +107,12 @@
 </template>
 
 <script>
-import { buyItem, butItemWithReferral, approveSpending } from '@/api'
+import web3 from '@/web3'
+import { buyItem, butItemWithReferral, approveSpending, getCurrentReferral } from '@/api'
 import { toReadablePrice } from '@/util'
 import BuyNotifications from '../components/BuyNotifications'
 import { mapState } from 'vuex'
-import { clearCookie, getCookie } from '../util'
+import { getCookie } from '../util'
 
 export default {
   name: 'item-view',
@@ -168,6 +170,12 @@ export default {
       this.hasReferral = true
       this.invitee = c
     }
+    const [address] = await web3.eth.getAccounts()
+    const invitee = await getCurrentReferral(address)
+    if (invitee !== '0x0000000000000000000000000000000000000000') {
+      this.hasReferral = true
+      this.invitee = invitee
+    }
   },
 
   watch: {},
@@ -214,11 +222,6 @@ export default {
       )
       const price = this.toPlainString(readable.price)
       return `${price} ${payTokenInfo && payTokenInfo.symbol}`
-    },
-    revokeReferral () {
-      this.hasReferral = false
-      this.invitee = ''
-      clearCookie('invitee_id')
     }
   }
 }
@@ -246,21 +249,5 @@ export default {
   color: #12537E;
   font-size: 20px;
   font-weight: 500;
-}
-.revoke-btn {
-  margin: 10px 0;
-  padding: 10px;
-  outline: none;
-  background-color: transparent;
-  border: 1px solid;
-  border-radius: 4px;
-  border-color: #ff3860;
-  color: #ff3860;
-  font-size: 1rem;
-}
-.revoke-btn:hover {
-  background-color: #ff3860;
-  border-color: #ff3860;
-  color: #fff;
 }
 </style>
